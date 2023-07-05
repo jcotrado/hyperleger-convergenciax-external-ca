@@ -1,0 +1,53 @@
+####
+## 00 Crear carpetas con configuraciones de las PKI de cada organizacion
+####
+export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/fabric-ca
+mkdir -p $EXTERNAL_CA_CFG/convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+mkdir -p $EXTERNAL_CA_CFG/org1.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+mkdir -p $EXTERNAL_CA_CFG/org2.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+mkdir -p $EXTERNAL_CA_CFG/org3.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/fabric-ca
+FG/convergenciax.com/{int,msp,peers,root,tls-int,tjcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ mkdir -p $EXTERNAL_CA_CFG/convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+ergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+mkdir -p $EXTERNAL_CA_CFG/org2.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+mkdir -p $EXTERNAL_CA_CFG/org3.convergenciax.com/jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ mkdir -p $EXTERNAL_CA_CFG/org1.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+{int,msp,peers,root,tls-int,tls-root,users}jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ mkdir -p $EXTERNAL_CA_CFG/org2.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ mkdir -p $EXTERNAL_CA_CFG/org3.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ 
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ ls -lasrt $EXTERNAL_CA_CFG/convergenciax.com
+total 36
+4 drwxrwxr-x 2 jcotrado jcotrado 4096 Jul  5 12:47 users
+4 drwxrwxr-x 2 jcotrado jcotrado 4096 Jul  5 12:47 tls-root
+4 drwxrwxr-x 2 jcotrado jcotrado 4096 Jul  5 12:47 tls-int
+4 drwxrwxr-x 2 jcotrado jcotrado 4096 Jul  5 12:47 root
+4 drwxrwxr-x 2 jcotrado jcotrado 4096 Jul  5 12:47 peers
+4 drwxrwxr-x 2 jcotrado jcotrado 4096 Jul  5 12:47 msp
+4 drwxrwxr-x 2 jcotrado jcotrado 4096 Jul  5 12:47 int
+4 drwxrwxr-x 9 jcotrado jcotrado 4096 Jul  5 12:47 .
+4 drwxrwxr-x 6 jcotrado jcotrado 4096 Jul  5 12:47 ..
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ 
+
+
+#Se crearon las estructuras de carpeta base
+
+
+
+
+###
+# 01 - Inicializar los fabric-ca por cada organización de la red, 
+#
+#  Esto genera el keystore y la configuración inicial en la carpeta root/fabric-ca-server-config.yaml
+###
+
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ docker-compose -f ../docker-compose-ca-root.yaml up -d
+Creating network "external-ca_basic" with the default driver
+Creating root.ca.org1.convergenciax.com     ... done
+Creating tls.root.ca.org1.convergenciax.com ... done
+Creating root.ca.convergenciax.com          ... done
+Creating tls.root.ca.convergenciax.com      ... done
+Creating tls.root.ca.org2.convergenciax.com ... done
+Creating root.ca.org2.convergenciax.com     ... done
+Creating tls.root.ca.org3.convergenciax.com ... done
+Creating root.ca.org3.convergenciax.com     ... done
+

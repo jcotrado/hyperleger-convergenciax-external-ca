@@ -1,0 +1,122 @@
+# Copyright ConvergenciaX Spa.
+# Autor: Joel Cotrado Vargas <joel.cotrado@gmail.com>
+# Date: 01-12-2022
+#
+#
+version: '2'
+
+# ---CHANGED--- our network is called "basic"
+networks:
+  basic:
+services:
+  # Convergenciax.com
+  root.ca.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: root.ca.convergenciax.com
+    ports:
+      - "7060:7054"
+    volumes:
+      - ../fabric-ca/convergenciax.com/root:/etc/hyperledger/fabric-ca-server
+    command: >
+      sh -c "fabric-ca-server start -b admin:adminpw"
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+  tls.root.ca.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: tls.root.ca.convergenciax.com
+    ports:
+      - "7061:7054"
+    volumes:
+      - ../fabric-ca/convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
+    command: >
+      sh -c "fabric-ca-server start -b admin:adminpw"
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+
+  # ORG 1
+  root.ca.org1.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: root.ca.org1.convergenciax.com
+    ports:
+      - "7054:7054"
+    volumes:
+      - ../fabric-ca/org1.convergenciax.com/root:/etc/hyperledger/fabric-ca-server
+    command: >
+      sh -c "fabric-ca-server start -b admin:adminpw"
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+  tls.root.ca.org1.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: tls.root.ca.org1.convergenciax.com
+    ports:
+      - "7055:7054"
+    volumes:
+      - ../fabric-ca/org1.convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
+    command: >
+      sh -c "fabric-ca-server start -b admin:adminpw"
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+
+  # ORG 2
+  root.ca.org2.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: root.ca.org2.convergenciax.com
+    ports:
+      - "7056:7054"
+    volumes:
+      - ../fabric-ca/org2.convergenciax.com/root:/etc/hyperledger/fabric-ca-server
+    command: >
+      sh -c "fabric-ca-server start -b admin:adminpw"
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+  tls.root.ca.org2.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: tls.root.ca.org2.convergenciax.com
+    ports:
+      - "7057:7054"
+    volumes:
+      - ../fabric-ca/org2.convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
+    command: >
+      sh -c "fabric-ca-server start -b admin:adminpw"
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+
+  # ORG 3
+  root.ca.org3.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: root.ca.org3.convergenciax.com
+    ports:
+      - "7058:7054"
+    volumes:
+      - ../fabric-ca/org3.convergenciax.com/root:/etc/hyperledger/fabric-ca-server
+    command: >
+      sh -c "fabric-ca-server start -b admin:adminpw"
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+  tls.root.ca.org3.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: tls.root.ca.org3.convergenciax.com
+    ports:
+      - "7059:7054"
+    volumes:
+      - ../fabric-ca/org3.convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
+    command: >
+      sh -c "fabric-ca-server start -b admin:adminpw"
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
