@@ -17,9 +17,8 @@ services:
     ports:
       - "7060:7054"
     volumes:
-      - ../fabric-ca/convergenciax.com/root:/etc/hyperledger/fabric-ca-server
-    command: >
-      sh -c "fabric-ca-server start -b admin:adminpw"
+      - ./pki-ca/convergenciax.com/root:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -30,9 +29,8 @@ services:
     ports:
       - "7061:7054"
     volumes:
-      - ../fabric-ca/convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
-    command: >
-      sh -c "fabric-ca-server start -b admin:adminpw"
+      - ./pki-ca/convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -45,9 +43,8 @@ services:
     ports:
       - "7054:7054"
     volumes:
-      - ../fabric-ca/org1.convergenciax.com/root:/etc/hyperledger/fabric-ca-server
-    command: >
-      sh -c "fabric-ca-server start -b admin:adminpw"
+      - ./pki-ca/org1.convergenciax.com/root:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -58,9 +55,9 @@ services:
     ports:
       - "7055:7054"
     volumes:
-      - ../fabric-ca/org1.convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
-    command: >
-      sh -c "fabric-ca-server start -b admin:adminpw"
+      - ./pki-ca/org1.convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
+      
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -73,9 +70,8 @@ services:
     ports:
       - "7056:7054"
     volumes:
-      - ../fabric-ca/org2.convergenciax.com/root:/etc/hyperledger/fabric-ca-server
-    command: >
-      sh -c "fabric-ca-server start -b admin:adminpw"
+      - ./pki-ca/org2.convergenciax.com/root:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -86,9 +82,8 @@ services:
     ports:
       - "7057:7054"
     volumes:
-      - ../fabric-ca/org2.convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
-    command: >
-      sh -c "fabric-ca-server start -b admin:adminpw"
+      - ./pki-ca/org2.convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -101,9 +96,8 @@ services:
     ports:
       - "7058:7054"
     volumes:
-      - ../fabric-ca/org3.convergenciax.com/root:/etc/hyperledger/fabric-ca-server
-    command: >
-      sh -c "fabric-ca-server start -b admin:adminpw"
+      - ./pki-ca/org3.convergenciax.com/root:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -114,9 +108,8 @@ services:
     ports:
       - "7059:7054"
     volumes:
-      - ../fabric-ca/org3.convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
-    command: >
-      sh -c "fabric-ca-server start -b admin:adminpw"
+      - ./pki-ca/org3.convergenciax.com/tls-root:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic

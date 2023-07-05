@@ -7,6 +7,7 @@ mkdir -p $EXTERNAL_CA_CFG/org1.convergenciax.com/{int,msp,peers,root,tls-int,tls
 mkdir -p $EXTERNAL_CA_CFG/org2.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
 mkdir -p $EXTERNAL_CA_CFG/org3.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
 
+
 jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/fabric-ca
 FG/convergenciax.com/{int,msp,peers,root,tls-int,tjcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ mkdir -p $EXTERNAL_CA_CFG/convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
 ergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
@@ -40,14 +41,278 @@ jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$
 #  Esto genera el keystore y la configuración inicial en la carpeta root/fabric-ca-server-config.yaml
 ###
 
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$ docker-compose -f ../docker-compose-ca-root.yaml up -d
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ls -lasrt
+total 32
+4 -rw-rw-r-- 1 jcotrado jcotrado   39 Jul  3 19:03 README.md
+4 drwxrwxr-x 2 jcotrado jcotrado 4096 Jul  4 23:02 scripts
+4 -rw-rw-r-- 1 jcotrado jcotrado 3185 Jul  5 12:51 00_salidas.txt
+4 drwxrwxr-x 8 jcotrado jcotrado 4096 Jul  5 12:56 .git
+4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 14:34 .
+4 -rw-rw-r-- 1 jcotrado jcotrado 3820 Jul  5 16:47 docker-compose-ca-root.yaml
+4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 16:54 ..
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 16:57 pki-ca
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ls -lasrt pki-ca/
+total 8
+4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 14:34 ..
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 16:57 .
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ docker-compose -f docker-compose-ca-root.yaml up -d
 Creating network "external-ca_basic" with the default driver
-Creating root.ca.org1.convergenciax.com     ... done
-Creating tls.root.ca.org1.convergenciax.com ... done
-Creating root.ca.convergenciax.com          ... done
-Creating tls.root.ca.convergenciax.com      ... done
 Creating tls.root.ca.org2.convergenciax.com ... done
-Creating root.ca.org2.convergenciax.com     ... done
-Creating tls.root.ca.org3.convergenciax.com ... done
+Creating tls.root.ca.org1.convergenciax.com ... done
+Creating root.ca.org1.convergenciax.com     ... done
+Creating root.ca.convergenciax.com          ... done
 Creating root.ca.org3.convergenciax.com     ... done
+Creating tls.root.ca.convergenciax.com      ... done
+Creating tls.root.ca.org3.convergenciax.com ... done
+Creating root.ca.org2.convergenciax.com     ... done
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ls -lasrt pki-ca/
+total 24
+4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 14:34 ..
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org1.convergenciax.com
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org2.convergenciax.com
+4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 .
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 convergenciax.com
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org3.convergenciax.com
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
 
+
+# Se inicilizo las CA root de cada PKI de la organizacion
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ls -lasrtR pki-ca/
+pki-ca/:
+total 24
+4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 14:34 ..
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org1.convergenciax.com
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org2.convergenciax.com
+4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 .
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 convergenciax.com
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org3.convergenciax.com
+
+pki-ca/org1.convergenciax.com:
+total 16
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 .
+4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 ..
+4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 root
+4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 tls-root
+
+pki-ca/org1.convergenciax.com/root:
+total 108
+ 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
+20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
+ 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
+64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
+
+pki-ca/org1.convergenciax.com/root/msp:
+total 12
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+
+pki-ca/org1.convergenciax.com/root/msp/keystore:
+total 20
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw------- 1 root root  241 Jul  5 16:57 1a999952303e65d5011cd87ab6937ca0f85e86609f2c069eb24dd6dc7aa31bb5_sk
+4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
+
+pki-ca/org1.convergenciax.com/tls-root:
+total 108
+ 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
+20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
+ 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
+64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
+
+pki-ca/org1.convergenciax.com/tls-root/msp:
+total 12
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+
+pki-ca/org1.convergenciax.com/tls-root/msp/keystore:
+total 20
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw------- 1 root root  241 Jul  5 16:57 71ce5b480d045c856b94ec3244fc044a4c2e6ad0ab51d542ef14cd3be56c4181_sk
+4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
+
+pki-ca/org2.convergenciax.com:
+total 16
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 .
+4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 ..
+4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 tls-root
+4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 root
+
+pki-ca/org2.convergenciax.com/tls-root:
+total 108
+ 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
+20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
+ 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
+64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
+
+pki-ca/org2.convergenciax.com/tls-root/msp:
+total 12
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+
+pki-ca/org2.convergenciax.com/tls-root/msp/keystore:
+total 20
+4 -rw------- 1 root root  241 Jul  5 16:57 2d2ed824b5f28f97858d06a779e958e53ea9423dd80a5d1741745be7a5db88d0_sk
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
+
+pki-ca/org2.convergenciax.com/root:
+total 108
+ 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
+20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
+ 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
+64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
+
+pki-ca/org2.convergenciax.com/root/msp:
+total 12
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+
+pki-ca/org2.convergenciax.com/root/msp/keystore:
+total 20
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw------- 1 root root  241 Jul  5 16:57 0c86be7f2316ef16eb155deb8f5b0242382467b0c1bf654b3ff605baea02573b_sk
+4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
+4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+
+pki-ca/convergenciax.com:
+total 16
+4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 ..
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 .
+4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 root
+4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 tls-root
+
+pki-ca/convergenciax.com/root:
+total 108
+ 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
+20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
+ 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
+64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
+
+pki-ca/convergenciax.com/root/msp:
+total 12
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+
+pki-ca/convergenciax.com/root/msp/keystore:
+total 20
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw------- 1 root root  241 Jul  5 16:57 62d491ce6ee04276142f74a7fdba78b166b493caff912b2c01404de10f0304d5_sk
+4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
+
+pki-ca/convergenciax.com/tls-root:
+total 108
+ 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
+20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
+ 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
+64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
+
+pki-ca/convergenciax.com/tls-root/msp:
+total 12
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+
+pki-ca/convergenciax.com/tls-root/msp/keystore:
+total 20
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw------- 1 root root  241 Jul  5 16:57 062cdd5fd3df9c6cf3261c0dfd214f921f13cbd207ebb654513300ccf61593a2_sk
+4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
+
+pki-ca/org3.convergenciax.com:
+total 16
+4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 ..
+4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 .
+4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 root
+4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 tls-root
+
+pki-ca/org3.convergenciax.com/root:
+total 108
+ 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
+20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
+ 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
+64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
+
+pki-ca/org3.convergenciax.com/root/msp:
+total 12
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+
+pki-ca/org3.convergenciax.com/root/msp/keystore:
+total 20
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw------- 1 root root  241 Jul  5 16:57 294d491b4bd920fc8d02dc75b89c806f41e04fb08c3e32431bc7492fb64e2f1a_sk
+4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
+
+pki-ca/org3.convergenciax.com/tls-root:
+total 108
+ 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
+20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
+ 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
+64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
+ 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
+
+pki-ca/org3.convergenciax.com/tls-root/msp:
+total 12
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+
+pki-ca/org3.convergenciax.com/tls-root/msp/keystore:
+total 20
+4 -rw------- 1 root root  241 Jul  5 16:57 e5128d3a373ab2593ec1ad5090dc3341a53ee4408956cbe8cced9e89d417a300_sk
+4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
