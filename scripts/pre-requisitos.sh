@@ -27,10 +27,13 @@ sudo apt install libtool libltdl-dev
 ## 00 Crear carpetas con configuraciones de las PKI de cada organizacion
 ####
 export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/pki-ca
-mkdir -p $EXTERNAL_CA_CFG/convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
-mkdir -p $EXTERNAL_CA_CFG/org1.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
-mkdir -p $EXTERNAL_CA_CFG/org2.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
-mkdir -p $EXTERNAL_CA_CFG/org3.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+
+
+#mkdir -p $EXTERNAL_CA_CFG/convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+#mkdir -p $EXTERNAL_CA_CFG/org1.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+#mkdir -p $EXTERNAL_CA_CFG/org2.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+#mkdir -p $EXTERNAL_CA_CFG/org3.convergenciax.com/{int,msp,peers,root,tls-int,tls-root,users}
+
 
 ###
 # 01 - Inicializar los fabric-ca por cada organización de la red, 
