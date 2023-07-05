@@ -1,15 +1,17 @@
+
+
 #CONVERGENCIAX
 export CSR_NAME_CONVERGENCIAX="C=Chile,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-Hyperledger"
 #Enroll bootstrapt identity of int CA
 export FABRIC_CA_CLIENT_HOME=../fabric-ca/convergenciax.com/int/clients/admin
 fabric-ca-client enroll -u http://admin:adminpw@localhost:10054 --csr.names $CSR_NAME_CONVERGENCIAX
 #Registar la CA intermedia en root CA
-fabric-ca-client register --id.name int.ca.org3.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:10054
+fabric-ca-client register --id.name int.ca.org3.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7060
 #Enroll bootstrapt identidad de TLS root CA
 export FABRIC_CA_CLIENT_HOME=../fabric-ca/convergenciax.com/tls-root/clients/admin
 fabric-ca-client enroll -u http://admin:adminpw@localhost:10055 --csr.names "$CSR_NAME_CONVERGENCIAX"
 #Registar la CA intermedia en el TLS root CA
-fabric-ca-client register --id.name tls.int.ca.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:10055
+fabric-ca-client register --id.name tls.int.ca.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7061
 
 
 
