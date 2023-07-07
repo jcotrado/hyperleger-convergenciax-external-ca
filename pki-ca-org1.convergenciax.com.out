@@ -1,0 +1,158 @@
+pki-ca/org1.convergenciax.com:
+total 20
+4 drwxrwxr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 ..
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:42 int
+4 drwxrwxr-x 5 root     root     4096 Jul  5 17:42 .
+4 drwxrwxr-x 3 root     root     4096 Jul  5 17:42 root
+4 drwxrwxr-x 4 root     root     4096 Jul  5 17:44 tls-root
+
+pki-ca/org1.convergenciax.com/int:
+total 12
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:42 clients
+4 drwxrwxr-x 5 root     root     4096 Jul  5 17:42 ..
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:42 .
+
+pki-ca/org1.convergenciax.com/int/clients:
+total 12
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:42 ..
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:42 .
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:42 admin
+
+pki-ca/org1.convergenciax.com/int/clients/admin:
+total 20
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:42 ..
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:42 .
+8 -rwxr-xr-x 1 jcotrado jcotrado 7157 Jul  5 17:42 fabric-ca-client-config.yaml
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:42 msp
+
+pki-ca/org1.convergenciax.com/int/clients/admin/msp:
+total 32
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:42 user
+4 drwx------ 2 jcotrado jcotrado 4096 Jul  5 17:42 keystore
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:42 ..
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:42 signcerts
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:42 cacerts
+4 -rw-r--r-- 1 jcotrado jcotrado  843 Jul  5 17:42 IssuerPublicKey
+4 -rw-r--r-- 1 jcotrado jcotrado  215 Jul  5 17:42 IssuerRevocationPublicKey
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:42 .
+
+pki-ca/org1.convergenciax.com/int/clients/admin/msp/user:
+total 8
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:42 .
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:42 ..
+
+pki-ca/org1.convergenciax.com/int/clients/admin/msp/keystore:
+total 12
+4 -rw------- 1 jcotrado jcotrado  241 Jul  5 17:42 148f0de5fdf69fb6fde5ec520ea25917ed08718f756ea7ce2aa0446f35df6948_sk
+4 drwx------ 2 jcotrado jcotrado 4096 Jul  5 17:42 .
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:42 ..
+
+pki-ca/org1.convergenciax.com/int/clients/admin/msp/signcerts:
+total 12
+4 -rw-r--r-- 1 jcotrado jcotrado  855 Jul  5 17:42 cert.pem
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:42 .
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:42 ..
+
+pki-ca/org1.convergenciax.com/int/clients/admin/msp/cacerts:
+total 12
+4 -rw-r--r-- 1 jcotrado jcotrado  786 Jul  5 17:42 localhost-7054.pem
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:42 .
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:42 ..
+
+pki-ca/org1.convergenciax.com/root:
+total 108
+20 -rw-rw-r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxrwxr-x 3 root root  4096 Jul  5 16:57 msp
+ 4 -rw-rw-r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-rw-r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-rw-r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
+ 4 drwxrwxr-x 5 root root  4096 Jul  5 17:42 ..
+64 -rw-rw-r-- 1 root root 65536 Jul  5 17:42 fabric-ca-server.db
+ 4 drwxrwxr-x 3 root root  4096 Jul  5 17:42 .
+
+pki-ca/org1.convergenciax.com/root/msp:
+total 12
+4 drwxrwxr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxrwxr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxrwxr-x 3 root root 4096 Jul  5 17:42 ..
+
+pki-ca/org1.convergenciax.com/root/msp/keystore:
+total 20
+4 drwxrwxr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw-rw---- 1 root root  241 Jul  5 16:57 1a999952303e65d5011cd87ab6937ca0f85e86609f2c069eb24dd6dc7aa31bb5_sk
+4 -rw-rw-r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 -rw-rw-r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+4 drwxrwxr-x 2 root root 4096 Jul  5 16:57 .
+
+pki-ca/org1.convergenciax.com/tls-root:
+total 112
+20 -rw-rw-r-- 1 root     root     20038 Jul  5 16:57 fabric-ca-server-config.yaml
+ 4 drwxrwxr-x 3 root     root      4096 Jul  5 16:57 msp
+ 4 -rw-rw-r-- 1 root     root       786 Jul  5 16:57 ca-cert.pem
+ 4 -rw-rw-r-- 1 root     root       843 Jul  5 16:57 IssuerPublicKey
+ 4 -rw-rw-r-- 1 root     root       215 Jul  5 16:57 IssuerRevocationPublicKey
+ 4 drwxrwxr-x 5 root     root      4096 Jul  5 17:42 ..
+ 4 drwxr-xr-x 3 jcotrado jcotrado  4096 Jul  5 17:44 clients
+64 -rw-rw-r-- 1 root     root     65536 Jul  5 17:44 fabric-ca-server.db
+ 4 drwxrwxr-x 4 root     root      4096 Jul  5 17:44 .
+
+pki-ca/org1.convergenciax.com/tls-root/msp:
+total 12
+4 drwxrwxr-x 3 root root 4096 Jul  5 16:57 .
+4 drwxrwxr-x 2 root root 4096 Jul  5 16:57 keystore
+4 drwxrwxr-x 4 root root 4096 Jul  5 17:44 ..
+
+pki-ca/org1.convergenciax.com/tls-root/msp/keystore:
+total 20
+4 drwxrwxr-x 3 root root 4096 Jul  5 16:57 ..
+4 -rw-rw---- 1 root root  241 Jul  5 16:57 71ce5b480d045c856b94ec3244fc044a4c2e6ad0ab51d542ef14cd3be56c4181_sk
+4 -rw-rw-r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
+4 -rw-rw-r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
+4 drwxrwxr-x 2 root root 4096 Jul  5 16:57 .
+
+pki-ca/org1.convergenciax.com/tls-root/clients:
+total 12
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:44 .
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:44 admin
+4 drwxrwxr-x 4 root     root     4096 Jul  5 17:44 ..
+
+pki-ca/org1.convergenciax.com/tls-root/clients/admin:
+total 20
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:44 ..
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:44 .
+8 -rwxr-xr-x 1 jcotrado jcotrado 7157 Jul  5 17:44 fabric-ca-client-config.yaml
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:44 msp
+
+pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp:
+total 32
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:44 user
+4 drwxr-xr-x 3 jcotrado jcotrado 4096 Jul  5 17:44 ..
+4 drwx------ 2 jcotrado jcotrado 4096 Jul  5 17:44 keystore
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:44 signcerts
+4 -rw-r--r-- 1 jcotrado jcotrado  215 Jul  5 17:44 IssuerRevocationPublicKey
+4 -rw-r--r-- 1 jcotrado jcotrado  843 Jul  5 17:44 IssuerPublicKey
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:44 cacerts
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:44 .
+
+pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/user:
+total 8
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:44 .
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:44 ..
+
+pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/keystore:
+total 12
+4 -rw------- 1 jcotrado jcotrado  241 Jul  5 17:44 98fb3cedc4486c6e80d3d5517ec30727a113116a87794c79a47e1517f73267a5_sk
+4 drwx------ 2 jcotrado jcotrado 4096 Jul  5 17:44 .
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:44 ..
+
+pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/signcerts:
+total 12
+4 -rw-r--r-- 1 jcotrado jcotrado  859 Jul  5 17:44 cert.pem
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:44 ..
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:44 .
+
+pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/cacerts:
+total 12
+4 -rw-r--r-- 1 jcotrado jcotrado  786 Jul  5 17:44 localhost-7055.pem
+4 drwx------ 6 jcotrado jcotrado 4096 Jul  5 17:44 ..
+4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 17:44 .

@@ -1,0 +1,120 @@
+# Copyright ConvergenciaX Spa.
+# Autor: Joel Cotrado Vargas <joel.cotrado@gmail.com>
+# Date: 01-12-2022
+#
+#
+version: '2'
+
+# ---CHANGED--- our network is called "basic"
+networks:
+  basic:
+services:
+  # Convergenciax.com
+  int.ca.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: int.ca.convergenciax.com
+    ports:
+      - "8060:7054"
+    volumes:
+      - ./pki-ca/convergenciax.com/int:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.convergenciax.com:password@root.ca.convergenciax.com:7054'
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+
+  tls.int.ca.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: tls.int.ca.convergenciax.com
+    ports:
+      - "8061:7054"
+    volumes:
+      - ./pki-ca/convergenciax.com/tls-int:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://tls.int.ca.convergenciax.com:password@tls.root.ca.convergenciax.com:7054'
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+
+  
+  # ORG 1
+  int.ca.org1.convergenciax.com:
+    image: hyperledger/fabric-ca:latest
+    container_name: int.ca.org1.convergenciax.com
+    ports:
+      - "8054:7054"
+    volumes:
+      - ./pki-ca/org1.convergenciax.com/int:/etc/hyperledger/fabric-ca-server
+    ## El siguiente comando, conecta el certificado Intermedio con el certificado raiz
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.org1.convergenciax.com:password@root.ca.org1.convergenciax.com:7054'
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+
+  tls.int.ca.org1.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: tls.int.ca.org1.convergenciax.com
+    ports:
+      - "8055:7054"
+    volumes:
+      - ./pki-ca/org1.convergenciax.com/tls-int:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://tls.int.ca.org1.convergenciax.com:password@tls.root.ca.org1.convergenciax.com:7054'
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+
+  # ORG 2
+  int.ca.org2.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: int.ca.org2.convergenciax.com
+    ports:
+      - "8056:7054"
+    volumes:
+      - ./pki-ca/org2.convergenciax.com/int:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.org2.convergenciax.com:password@root.ca.org2.convergenciax.com:7054'
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+  
+  tls.int.ca.org2.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: tls.int.ca.org2.convergenciax.com
+    ports:
+      - "8057:7054"
+    volumes:
+      - ./pki-ca/org2.convergenciax.com/tls-int:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://tls.int.ca.org2.convergenciax.com:password@tls.root.ca.org2.convergenciax.com:7054'
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+
+  
+  # ORG 3
+  int.ca.org3.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: int.ca.org3.convergenciax.com
+    ports:
+      - "8058:7054"
+    volumes:
+      - ./pki-ca/org3.convergenciax.com/int:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.org3.convergenciax.com:password@root.ca.org3.convergenciax.com:7054'
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
+  
+  tls.int.ca.org3.convergenciax.com:
+    # ---CHANGED--- Container name – same as the peer name
+    image: hyperledger/fabric-ca:latest
+    container_name: tls.int.ca.org3.convergenciax.com
+    ports:
+      - "8059:7054"
+    volumes:
+      - ./pki-ca/org3.convergenciax.com/tls-int:/etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://tls.int.ca.org3.convergenciax.com:password@tls.root.ca.org3.convergenciax.com:7054'
+    networks:
+      # ---CHANGED--- our  is called "basic"
+      - basic
