@@ -36,422 +36,538 @@ jcotrado@convergencia2:~/HLFconvergenciax/external-ca/fabric-ca$
 
 
 ###
-# 01 - Inicializar los fabric-ca por cada organización de la red, 
-#
-#  Esto genera el keystore y la configuración inicial en la carpeta root/fabric-ca-server-config.yaml
+#  
+#   
 ###
 
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ls -lasrt
-total 32
-4 -rw-rw-r-- 1 jcotrado jcotrado   39 Jul  3 19:03 README.md
-4 drwxrwxr-x 2 jcotrado jcotrado 4096 Jul  4 23:02 scripts
-4 -rw-rw-r-- 1 jcotrado jcotrado 3185 Jul  5 12:51 00_salidas.txt
-4 drwxrwxr-x 8 jcotrado jcotrado 4096 Jul  5 12:56 .git
-4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 14:34 .
-4 -rw-rw-r-- 1 jcotrado jcotrado 3820 Jul  5 16:47 docker-compose-ca-root.yaml
-4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 16:54 ..
-4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 16:57 pki-ca
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ls -lasrt pki-ca/
-total 8
-4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 14:34 ..
-4 drwxr-xr-x 2 jcotrado jcotrado 4096 Jul  5 16:57 .
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
 jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ docker-compose -f docker-compose-ca-root.yaml up -d
 Creating network "external-ca_basic" with the default driver
 Creating tls.root.ca.org2.convergenciax.com ... done
-Creating tls.root.ca.org1.convergenciax.com ... done
-Creating root.ca.org1.convergenciax.com     ... done
-Creating root.ca.convergenciax.com          ... done
-Creating root.ca.org3.convergenciax.com     ... done
 Creating tls.root.ca.convergenciax.com      ... done
+Creating ca.root.org1.convergenciax.com     ... done
 Creating tls.root.ca.org3.convergenciax.com ... done
-Creating root.ca.org2.convergenciax.com     ... done
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ls -lasrt pki-ca/
-total 24
-4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 14:34 ..
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org1.convergenciax.com
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org2.convergenciax.com
-4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 .
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 convergenciax.com
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org3.convergenciax.com
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
-
-
-# Se inicilizo las CA root de cada PKI de la organizacion
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ls -lasrtR pki-ca/
-pki-ca/:
-total 24
-4 drwxrwxr-x 5 jcotrado jcotrado 4096 Jul  5 14:34 ..
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org1.convergenciax.com
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org2.convergenciax.com
-4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 .
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 convergenciax.com
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 org3.convergenciax.com
-
-pki-ca/org1.convergenciax.com:
-total 16
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 .
-4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 ..
-4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 root
-4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 tls-root
-
-pki-ca/org1.convergenciax.com/root:
-total 108
- 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
-20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
- 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
- 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
- 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
-64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
-
-pki-ca/org1.convergenciax.com/root/msp:
-total 12
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-
-pki-ca/org1.convergenciax.com/root/msp/keystore:
-total 20
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-4 -rw------- 1 root root  241 Jul  5 16:57 1a999952303e65d5011cd87ab6937ca0f85e86609f2c069eb24dd6dc7aa31bb5_sk
-4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
-4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
-
-pki-ca/org1.convergenciax.com/tls-root:
-total 108
- 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
-20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
- 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
- 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
- 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
-64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
-
-pki-ca/org1.convergenciax.com/tls-root/msp:
-total 12
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-
-pki-ca/org1.convergenciax.com/tls-root/msp/keystore:
-total 20
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-4 -rw------- 1 root root  241 Jul  5 16:57 71ce5b480d045c856b94ec3244fc044a4c2e6ad0ab51d542ef14cd3be56c4181_sk
-4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
-4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
-
-pki-ca/org2.convergenciax.com:
-total 16
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 .
-4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 ..
-4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 tls-root
-4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 root
-
-pki-ca/org2.convergenciax.com/tls-root:
-total 108
- 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
-20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
- 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
- 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
- 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
-64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
-
-pki-ca/org2.convergenciax.com/tls-root/msp:
-total 12
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-
-pki-ca/org2.convergenciax.com/tls-root/msp/keystore:
-total 20
-4 -rw------- 1 root root  241 Jul  5 16:57 2d2ed824b5f28f97858d06a779e958e53ea9423dd80a5d1741745be7a5db88d0_sk
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
-4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
-
-pki-ca/org2.convergenciax.com/root:
-total 108
- 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
-20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
- 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
- 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
- 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
-64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
-
-pki-ca/org2.convergenciax.com/root/msp:
-total 12
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-
-pki-ca/org2.convergenciax.com/root/msp/keystore:
-total 20
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-4 -rw------- 1 root root  241 Jul  5 16:57 0c86be7f2316ef16eb155deb8f5b0242382467b0c1bf654b3ff605baea02573b_sk
-4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
-4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
-
-pki-ca/convergenciax.com:
-total 16
-4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 ..
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 .
-4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 root
-4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 tls-root
-
-pki-ca/convergenciax.com/root:
-total 108
- 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
-20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
- 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
- 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
- 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
-64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
-
-pki-ca/convergenciax.com/root/msp:
-total 12
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-
-pki-ca/convergenciax.com/root/msp/keystore:
-total 20
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-4 -rw------- 1 root root  241 Jul  5 16:57 62d491ce6ee04276142f74a7fdba78b166b493caff912b2c01404de10f0304d5_sk
-4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
-4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
-
-pki-ca/convergenciax.com/tls-root:
-total 108
- 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
-20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
- 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
- 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
- 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
-64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
-
-pki-ca/convergenciax.com/tls-root/msp:
-total 12
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-
-pki-ca/convergenciax.com/tls-root/msp/keystore:
-total 20
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-4 -rw------- 1 root root  241 Jul  5 16:57 062cdd5fd3df9c6cf3261c0dfd214f921f13cbd207ebb654513300ccf61593a2_sk
-4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
-4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
-
-pki-ca/org3.convergenciax.com:
-total 16
-4 drwxr-xr-x 6 jcotrado jcotrado 4096 Jul  5 16:57 ..
-4 drwxr-xr-x 4 root     root     4096 Jul  5 16:57 .
-4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 root
-4 drwxr-xr-x 3 root     root     4096 Jul  5 16:57 tls-root
-
-pki-ca/org3.convergenciax.com/root:
-total 108
- 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
-20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
- 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
- 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
- 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
-64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
-
-pki-ca/org3.convergenciax.com/root/msp:
-total 12
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-
-pki-ca/org3.convergenciax.com/root/msp/keystore:
-total 20
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-4 -rw------- 1 root root  241 Jul  5 16:57 294d491b4bd920fc8d02dc75b89c806f41e04fb08c3e32431bc7492fb64e2f1a_sk
-4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
-4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
-
-pki-ca/org3.convergenciax.com/tls-root:
-total 108
- 4 drwxr-xr-x 4 root root  4096 Jul  5 16:57 ..
-20 -rw-r--r-- 1 root root 20038 Jul  5 16:57 fabric-ca-server-config.yaml
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 msp
- 4 -rw-r--r-- 1 root root   786 Jul  5 16:57 ca-cert.pem
- 4 -rw-r--r-- 1 root root   843 Jul  5 16:57 IssuerPublicKey
- 4 -rw-r--r-- 1 root root   215 Jul  5 16:57 IssuerRevocationPublicKey
-64 -rw-r--r-- 1 root root 65536 Jul  5 16:57 fabric-ca-server.db
- 4 drwxr-xr-x 3 root root  4096 Jul  5 16:57 .
-
-pki-ca/org3.convergenciax.com/tls-root/msp:
-total 12
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 .
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 keystore
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-
-pki-ca/org3.convergenciax.com/tls-root/msp/keystore:
-total 20
-4 -rw------- 1 root root  241 Jul  5 16:57 e5128d3a373ab2593ec1ad5090dc3341a53ee4408956cbe8cced9e89d417a300_sk
-4 drwxr-xr-x 3 root root 4096 Jul  5 16:57 ..
-4 -rw-r--r-- 1 root root   32 Jul  5 16:57 IssuerSecretKey
-4 -rw-r--r-- 1 root root  282 Jul  5 16:57 IssuerRevocationPrivateKey
-4 drwxr-xr-x 2 root root 4096 Jul  5 16:57 .
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
-
-
-#####
-#  02 generar orgx/int y actualizar orgx/tls-root
-#
-####
-
-## Generando Convergenciax.com
-
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client enroll -u http://admin:adminpw@localhost:7060 --csr.names $CSR_NAME_CONVERGENCIAX
-2023/07/05 17:38:29 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
-2023/07/05 17:38:29 [INFO] generating key: &{A:ecdsa S:256}
-2023/07/05 17:38:29 [INFO] encoded CSR
-2023/07/05 17:38:29 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/msp/signcerts/cert.pem
-2023/07/05 17:38:29 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/msp/cacerts/localhost-7060.pem
-2023/07/05 17:38:29 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/msp/IssuerPublicKey
-2023/07/05 17:38:29 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/msp/IssuerRevocationPublicKey
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client register --id.name int.ca.org3.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7060
-2023/07/05 17:38:44 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Creating ca.root.convergenciax.com          ... done
+Creating ca.root.org3.convergenciax.com     ... done
+Creating tls.root.ca.org1.convergenciax.com ... done
+Creating ca.root.org2.convergenciax.com     ... done
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ./scripts/01_rootca.sh 
+2023/07/11 22:48:11 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:11 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:48:11 [INFO] encoded CSR
+2023/07/11 22:48:11 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/root/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:48:11 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/root/clients/admin/msp/cacerts/localhost-7060.pem
+2023/07/11 22:48:11 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/root/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:48:11 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/root/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:48:11 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/root/clients/admin/fabric-ca-client-config.yaml
 Password: password
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/convergenciax.com/tls-root/clients/admin
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client enroll -u http://admin:adminpw@localhost:7061 --csr.names "$CSR_NAME_CONVERGENCIAX"
-2023/07/05 17:39:08 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
-2023/07/05 17:39:08 [INFO] generating key: &{A:ecdsa S:256}
-2023/07/05 17:39:08 [INFO] encoded CSR
-2023/07/05 17:39:08 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/msp/signcerts/cert.pem
-2023/07/05 17:39:08 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/msp/cacerts/localhost-7061.pem
-2023/07/05 17:39:08 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/msp/IssuerPublicKey
-2023/07/05 17:39:08 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/msp/IssuerRevocationPublicKey
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client register --id.name tls.int.ca.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7061
-2023/07/05 17:39:18 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:11 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:11 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:48:11 [INFO] encoded CSR
+2023/07/11 22:48:12 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:48:12 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/msp/cacerts/localhost-7061.pem
+2023/07/11 22:48:12 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:48:12 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:48:12 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
 Password: password
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
-
-
-#
-# Generar codigo org1.convergenciax.com
-#
-
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export CSR_NAME_ORG1="C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-Hyperledger"
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/org1.convergenciax.com/int/clients/admin
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client enroll -u http://admin:adminpw@localhost:7054 --csr.names "$CSR_NAME_ORG1"
-2023/07/05 17:42:07 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
-2023/07/05 17:42:07 [INFO] generating key: &{A:ecdsa S:256}
-2023/07/05 17:42:07 [INFO] encoded CSR
-2023/07/05 17:42:08 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/msp/signcerts/cert.pem
-2023/07/05 17:42:08 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/msp/cacerts/localhost-7054.pem
-2023/07/05 17:42:08 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/msp/IssuerPublicKey
-2023/07/05 17:42:08 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/msp/IssuerRevocationPublicKey
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client register --id.name int.ca.org1.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7054
-2023/07/05 17:42:24 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:12 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:12 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:48:12 [INFO] encoded CSR
+2023/07/11 22:48:12 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/root/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:48:12 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/root/clients/admin/msp/cacerts/localhost-7054.pem
+2023/07/11 22:48:12 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/root/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:48:12 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/root/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:48:13 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/root/clients/admin/fabric-ca-client-config.yaml
 Password: password
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/org1.convergenciax.com/tls-root/clients/admin
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client enroll -u http://admin:adminpw@localhost:7055 --csr.names "$CSR_NAME_ORG1"
-2023/07/05 17:44:22 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
-2023/07/05 17:44:22 [INFO] generating key: &{A:ecdsa S:256}
-2023/07/05 17:44:22 [INFO] encoded CSR
-2023/07/05 17:44:22 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/signcerts/cert.pem
-2023/07/05 17:44:22 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/cacerts/localhost-7055.pem
-2023/07/05 17:44:22 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/IssuerPublicKey
-2023/07/05 17:44:22 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/IssuerRevocationPublicKey
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client register --id.name tls.int.ca.org1.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7055
-2023/07/05 17:44:55 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:13 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:13 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:48:13 [INFO] encoded CSR
+2023/07/11 22:48:13 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:48:13 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/cacerts/localhost-7055.pem
+2023/07/11 22:48:13 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:48:13 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:48:14 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
 Password: password
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
-
-ls -lasrtR pki-ca/org1.convergenciax.com >> pki-ca-org1.convergenciax.com.out
-ls -lasrtR pki-ca/convergenciax.com >> pki-ca-convergenciax.com.out
-
-
-#
-# Generar codigo org2.convergenciax.com
-#
-
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export CSR_NAME_ORG2="C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-Hyperledger"
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/org2.convergenciax.com/int/clients/admin
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client enroll -u http://admin:adminpw@localhost:7056 --csr.names "$CSR_NAME_ORG2"
-2023/07/05 17:50:27 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
-2023/07/05 17:50:27 [INFO] generating key: &{A:ecdsa S:256}
-2023/07/05 17:50:27 [INFO] encoded CSR
-2023/07/05 17:50:27 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/msp/signcerts/cert.pem
-2023/07/05 17:50:27 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/msp/cacerts/localhost-7056.pem
-2023/07/05 17:50:27 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/msp/IssuerPublicKey
-2023/07/05 17:50:27 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/msp/IssuerRevocationPublicKey
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client register --id.name int.ca.org2.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7056
-2023/07/05 18:04:32 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:14 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:14 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:48:14 [INFO] encoded CSR
+2023/07/11 22:48:14 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/root/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:48:14 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/root/clients/admin/msp/cacerts/localhost-7056.pem
+2023/07/11 22:48:14 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/root/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:48:14 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/root/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:48:14 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/root/clients/admin/fabric-ca-client-config.yaml
 Password: password
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/org2.convergenciax.com/tls-root/clients/admin
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client enroll -u http://admin:adminpw@localhost:7057 --csr.names "$CSR_NAME_ORG2"
-2023/07/05 18:06:54 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
-2023/07/05 18:06:54 [INFO] generating key: &{A:ecdsa S:256}
-2023/07/05 18:06:54 [INFO] encoded CSR
-2023/07/05 18:06:54 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/msp/signcerts/cert.pem
-2023/07/05 18:06:54 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/msp/cacerts/localhost-7057.pem
-2023/07/05 18:06:54 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/msp/IssuerPublicKey
-2023/07/05 18:06:54 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:48:15 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:15 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:48:15 [INFO] encoded CSR
+2023/07/11 22:48:15 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:48:15 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/msp/cacerts/localhost-7057.pem
+2023/07/11 22:48:15 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:48:15 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:48:15 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
+Password: password
+2023/07/11 22:48:16 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:16 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:48:16 [INFO] encoded CSR
+2023/07/11 22:48:16 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/root/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:48:16 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/root/clients/admin/msp/cacerts/localhost-7058.pem
+2023/07/11 22:48:16 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/root/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:48:16 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/root/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:48:16 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/root/clients/admin/fabric-ca-client-config.yaml
+Password: password
+2023/07/11 22:48:16 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:48:16 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:48:16 [INFO] encoded CSR
+2023/07/11 22:48:16 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:48:16 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/msp/cacerts/localhost-7059.pem
+2023/07/11 22:48:16 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:48:16 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:48:17 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
+Password: password
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ docker-compose -f docker-compose-ca-int.yaml up -d
+WARNING: Found orphan containers (ca.root.org2.convergenciax.com, tls.root.ca.org1.convergenciax.com, tls.root.ca.org3.convergenciax.com, ca.root.convergenciax.com, ca.root.org3.convergenciax.com, tls.root.ca.convergenciax.com, ca.root.org1.convergenciax.com, tls.root.ca.org2.convergenciax.com) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
+Creating tls.int.ca.org2.convergenciax.com ... done
+Creating tls.int.ca.org1.convergenciax.com ... done
+Creating int.ca.convergenciax.com          ... done
+Creating int.ca.org3.convergenciax.com     ... done
+Creating int.ca.org1.convergenciax.com     ... done
+Creating tls.int.ca.convergenciax.com      ... done
+Creating tls.int.ca.org3.convergenciax.com ... done
+Creating int.ca.org2.convergenciax.com     ... done
 jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ^C
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client register --id.name tls.int.ca.org2.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7057
-2023/07/05 18:08:45 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
-Password: password
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$
-
-#
-# Generar codigo org3.convergenciax.com
-#
-
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export CSR_NAME_ORG3="C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-Hyperledger"
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/org3.convergenciax.com/int/clients/admin
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client enroll -u http://admin:adminpw@localhost:7058 --csr.names "$CSR_NAME_ORG3"
-2023/07/05 18:23:14 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
-2023/07/05 18:23:14 [INFO] generating key: &{A:ecdsa S:256}
-2023/07/05 18:23:14 [INFO] encoded CSR
-2023/07/05 18:23:14 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/msp/signcerts/cert.pem
-2023/07/05 18:23:14 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/msp/cacerts/localhost-7058.pem
-2023/07/05 18:23:14 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/msp/IssuerPublicKey
-2023/07/05 18:23:14 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/msp/IssuerRevocationPublicKey
 jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client register --id.name int.ca.org3.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7058
-2023/07/05 18:37:55 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
-Password: password
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ./scripts/02_intca.sh 
+##################
+# CONVERGENCIAX
+##################
+2023/07/11 22:52:53 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:52:53 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:52:53 [INFO] encoded CSR
+2023/07/11 22:52:53 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:52:53 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/msp/cacerts/localhost-8060.pem
+2023/07/11 22:52:53 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/msp/intermediatecerts/localhost-8060.pem
+2023/07/11 22:52:53 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:52:53 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:52:53 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:52:53 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:52:53 [INFO] encoded CSR
+2023/07/11 22:52:54 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:52:54 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin/msp/cacerts/localhost-8061.pem
+2023/07/11 22:52:54 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin/msp/intermediatecerts/localhost-8061.pem
+2023/07/11 22:52:54 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:52:54 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin/msp/IssuerRevocationPublicKey
+##################
+# Org1
+##################
+2023/07/11 22:52:54 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:52:54 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:52:54 [INFO] encoded CSR
+2023/07/11 22:52:54 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:52:54 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/msp/cacerts/localhost-8054.pem
+2023/07/11 22:52:54 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/msp/intermediatecerts/localhost-8054.pem
+2023/07/11 22:52:54 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:52:54 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:52:54 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:52:54 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:52:54 [INFO] encoded CSR
+2023/07/11 22:52:54 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:52:54 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin/msp/cacerts/localhost-8055.pem
+2023/07/11 22:52:54 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin/msp/intermediatecerts/localhost-8055.pem
+2023/07/11 22:52:54 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:52:54 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin/msp/IssuerRevocationPublicKey
+##################
+# Org2
+##################
+2023/07/11 22:52:55 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:52:55 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:52:55 [INFO] encoded CSR
+2023/07/11 22:52:55 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:52:55 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/msp/cacerts/localhost-8056.pem
+2023/07/11 22:52:55 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/msp/intermediatecerts/localhost-8056.pem
+2023/07/11 22:52:55 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:52:55 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:52:55 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:52:55 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:52:55 [INFO] encoded CSR
+2023/07/11 22:52:55 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:52:55 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin/msp/cacerts/localhost-8057.pem
+2023/07/11 22:52:55 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin/msp/intermediatecerts/localhost-8057.pem
+2023/07/11 22:52:55 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:52:55 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin/msp/IssuerRevocationPublicKey
+##################
+# Org3
+##################
+2023/07/11 22:52:56 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:52:56 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:52:56 [INFO] encoded CSR
+2023/07/11 22:52:56 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:52:56 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/msp/cacerts/localhost-8058.pem
+2023/07/11 22:52:56 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/msp/intermediatecerts/localhost-8058.pem
+2023/07/11 22:52:56 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:52:56 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/msp/IssuerRevocationPublicKey
+2023/07/11 22:52:56 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+2023/07/11 22:52:56 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:52:56 [INFO] encoded CSR
+2023/07/11 22:52:56 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin/msp/signcerts/cert.pem
+2023/07/11 22:52:56 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin/msp/cacerts/localhost-8059.pem
+2023/07/11 22:52:56 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin/msp/intermediatecerts/localhost-8059.pem
+2023/07/11 22:52:56 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin/msp/IssuerPublicKey
+2023/07/11 22:52:56 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin/msp/IssuerRevocationPublicKey
 jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
 
+#######################################
+###########
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ./scripts/03_identityEmitirCertificado.sh 
+issueCertificatesPKI -> int 8054 org1.convergenciax.com admin@org1.convergenciax.com adminpw admin C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin
+2023/07/11 22:57:52 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: adminpw
+fabric-ca-client--register: --id.name admin@org1.convergenciax.com --id.secret adminpw --id.type=admin -u http://admin:adminpw@localhost:8054
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin@org1.convergenciax.com
+2023/07/11 22:57:53 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin@org1.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:57:53 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:57:53 [INFO] encoded CSR
+2023/07/11 22:57:53 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin@org1.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:57:53 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin@org1.convergenciax.com/msp/cacerts/localhost-8054.pem
+2023/07/11 22:57:53 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin@org1.convergenciax.com/msp/intermediatecerts/localhost-8054.pem
+2023/07/11 22:57:53 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin@org1.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:57:53 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin@org1.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://admin@org1.convergenciax.com:adminpw@localhost:8054 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF #--csr.hosts localhost
+issueTLSCertificates -> tls-int 8055 org1.convergenciax.com admin@org1.convergenciax.com adminpw admin C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF admin@org1.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin
+2023/07/11 22:57:53 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: adminpw
+fabric-ca-client--register --id.name admin@org1.convergenciax.com --id.secret adminpw --id.type=admin -u http://admin:adminpw@localhost:8055
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin@org1.convergenciax.com
+2023/07/11 22:57:54 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin@org1.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:57:54 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:57:54 [INFO] encoded CSR
+2023/07/11 22:57:54 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin@org1.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:57:54 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin@org1.convergenciax.com/msp/cacerts/localhost-8055.pem
+2023/07/11 22:57:54 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin@org1.convergenciax.com/msp/intermediatecerts/localhost-8055.pem
+2023/07/11 22:57:54 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin@org1.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:57:54 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin@org1.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://admin@org1.convergenciax.com:adminpw@localhost:8055 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF #--csr.hosts admin@org1.convergenciax.com,localhost
+issueCertificatesPKI -> int 8054 org1.convergenciax.com client@org1.convergenciax.com clientpw client C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin
+2023/07/11 22:57:54 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: clientpw
+fabric-ca-client--register: --id.name client@org1.convergenciax.com --id.secret clientpw --id.type=client -u http://admin:adminpw@localhost:8054
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/client@org1.convergenciax.com
+2023/07/11 22:57:55 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/client@org1.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:57:55 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:57:55 [INFO] encoded CSR
+2023/07/11 22:57:55 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/client@org1.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:57:55 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/client@org1.convergenciax.com/msp/cacerts/localhost-8054.pem
+2023/07/11 22:57:55 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/client@org1.convergenciax.com/msp/intermediatecerts/localhost-8054.pem
+2023/07/11 22:57:55 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/client@org1.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:57:55 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/client@org1.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://client@org1.convergenciax.com:clientpw@localhost:8054 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF #--csr.hosts localhost
+issueTLSCertificates -> tls-int 8055 org1.convergenciax.com client@org1.convergenciax.com clientpw client C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF client@org1.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin
+2023/07/11 22:57:55 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: clientpw
+fabric-ca-client--register --id.name client@org1.convergenciax.com --id.secret clientpw --id.type=client -u http://admin:adminpw@localhost:8055
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/client@org1.convergenciax.com
+2023/07/11 22:57:56 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/client@org1.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:57:56 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:57:56 [INFO] encoded CSR
+2023/07/11 22:57:56 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/client@org1.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:57:56 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/client@org1.convergenciax.com/msp/cacerts/localhost-8055.pem
+2023/07/11 22:57:56 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/client@org1.convergenciax.com/msp/intermediatecerts/localhost-8055.pem
+2023/07/11 22:57:56 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/client@org1.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:57:56 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/client@org1.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://client@org1.convergenciax.com:clientpw@localhost:8055 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF #--csr.hosts client@org1.convergenciax.com,localhost
+issueCertificatesPKI -> int 8054 org1.convergenciax.com peer0@org1.convergenciax.com peerpw peer C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin
+2023/07/11 22:57:56 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: peerpw
+fabric-ca-client--register: --id.name peer0@org1.convergenciax.com --id.secret peerpw --id.type=peer -u http://admin:adminpw@localhost:8054
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/peer0@org1.convergenciax.com
+2023/07/11 22:57:57 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/peer0@org1.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:57:57 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:57:57 [INFO] encoded CSR
+2023/07/11 22:57:57 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/peer0@org1.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:57:57 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/peer0@org1.convergenciax.com/msp/cacerts/localhost-8054.pem
+2023/07/11 22:57:57 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/peer0@org1.convergenciax.com/msp/intermediatecerts/localhost-8054.pem
+2023/07/11 22:57:57 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/peer0@org1.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:57:57 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/int/clients/peer0@org1.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://peer0@org1.convergenciax.com:peerpw@localhost:8054 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF #--csr.hosts localhost
+issueTLSCertificates -> tls-int 8055 org1.convergenciax.com peer0@org1.convergenciax.com peerpw peer C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF peer0@org1.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin
+2023/07/11 22:57:57 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: peerpw
+fabric-ca-client--register --id.name peer0@org1.convergenciax.com --id.secret peerpw --id.type=peer -u http://admin:adminpw@localhost:8055
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0@org1.convergenciax.com
+2023/07/11 22:57:58 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0@org1.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:57:58 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:57:58 [INFO] encoded CSR
+2023/07/11 22:57:58 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0@org1.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:57:58 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0@org1.convergenciax.com/msp/cacerts/localhost-8055.pem
+2023/07/11 22:57:58 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0@org1.convergenciax.com/msp/intermediatecerts/localhost-8055.pem
+2023/07/11 22:57:58 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0@org1.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:57:58 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0@org1.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://peer0@org1.convergenciax.com:peerpw@localhost:8055 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF #--csr.hosts peer0@org1.convergenciax.com,localhost
+##################################################################################
+##  ORG2 Se crean MSP: admin, cliente y peer de la organizacion
+##################################################################################
+Emision de certificado para usuario admin identity---------------------
+issueCertificatesPKI -> int 8056 org2.convergenciax.com admin@org2.convergenciax.com adminpw admin C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin
+2023/07/11 22:57:59 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: adminpw
+fabric-ca-client--register: --id.name admin@org2.convergenciax.com --id.secret adminpw --id.type=admin -u http://admin:adminpw@localhost:8056
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin@org2.convergenciax.com
+2023/07/11 22:57:59 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin@org2.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:57:59 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:57:59 [INFO] encoded CSR
+2023/07/11 22:57:59 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin@org2.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:57:59 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin@org2.convergenciax.com/msp/cacerts/localhost-8056.pem
+2023/07/11 22:57:59 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin@org2.convergenciax.com/msp/intermediatecerts/localhost-8056.pem
+2023/07/11 22:57:59 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin@org2.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:57:59 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin@org2.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://admin@org2.convergenciax.com:adminpw@localhost:8056 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF #--csr.hosts localhost
+issueTLSCertificates -> tls-int 8057 org2.convergenciax.com admin@org2.convergenciax.com adminpw admin C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF admin@org2.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin
+2023/07/11 22:58:00 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: adminpw
+fabric-ca-client--register --id.name admin@org2.convergenciax.com --id.secret adminpw --id.type=admin -u http://admin:adminpw@localhost:8057
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin@org2.convergenciax.com
+2023/07/11 22:58:00 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin@org2.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:58:00 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:58:00 [INFO] encoded CSR
+2023/07/11 22:58:01 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin@org2.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:58:01 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin@org2.convergenciax.com/msp/cacerts/localhost-8057.pem
+2023/07/11 22:58:01 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin@org2.convergenciax.com/msp/intermediatecerts/localhost-8057.pem
+2023/07/11 22:58:01 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin@org2.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:58:01 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin@org2.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://admin@org2.convergenciax.com:adminpw@localhost:8057 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF #--csr.hosts admin@org2.convergenciax.com,localhost
+Emision de certificado para  cliente identity y cliente TLS--------------
+issueCertificatesPKI -> int 8056 org2.convergenciax.com client@org2.convergenciax.com clientpw client C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin
+2023/07/11 22:58:01 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: clientpw
+fabric-ca-client--register: --id.name client@org2.convergenciax.com --id.secret clientpw --id.type=client -u http://admin:adminpw@localhost:8056
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/client@org2.convergenciax.com
+2023/07/11 22:58:00 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/client@org2.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:58:00 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:58:00 [INFO] encoded CSR
+2023/07/11 22:58:01 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/client@org2.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:58:01 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/client@org2.convergenciax.com/msp/cacerts/localhost-8056.pem
+2023/07/11 22:58:01 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/client@org2.convergenciax.com/msp/intermediatecerts/localhost-8056.pem
+2023/07/11 22:58:01 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/client@org2.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:58:01 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/client@org2.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://client@org2.convergenciax.com:clientpw@localhost:8056 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF #--csr.hosts localhost
+issueTLSCertificates -> tls-int 8057 org2.convergenciax.com client@org2.convergenciax.com clientpw client C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF client@org2.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin
+2023/07/11 22:58:01 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: clientpw
+fabric-ca-client--register --id.name client@org2.convergenciax.com --id.secret clientpw --id.type=client -u http://admin:adminpw@localhost:8057
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/client@org2.convergenciax.com
+2023/07/11 22:58:02 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/client@org2.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:58:02 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:58:02 [INFO] encoded CSR
+2023/07/11 22:58:02 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/client@org2.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:58:02 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/client@org2.convergenciax.com/msp/cacerts/localhost-8057.pem
+2023/07/11 22:58:02 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/client@org2.convergenciax.com/msp/intermediatecerts/localhost-8057.pem
+2023/07/11 22:58:02 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/client@org2.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:58:02 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/client@org2.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://client@org2.convergenciax.com:clientpw@localhost:8057 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF #--csr.hosts client@org2.convergenciax.com,localhost
+Emision de certificado para peer nodo identity y para peer server TLS----
+issueCertificatesPKI -> int 8056 org2.convergenciax.com peer0@org2.convergenciax.com peerpw peer C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin
+2023/07/11 22:58:02 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: peerpw
+fabric-ca-client--register: --id.name peer0@org2.convergenciax.com --id.secret peerpw --id.type=peer -u http://admin:adminpw@localhost:8056
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/peer0@org2.convergenciax.com
+2023/07/11 22:58:03 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/peer0@org2.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:58:03 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:58:03 [INFO] encoded CSR
+2023/07/11 22:58:03 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/peer0@org2.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:58:03 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/peer0@org2.convergenciax.com/msp/cacerts/localhost-8056.pem
+2023/07/11 22:58:03 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/peer0@org2.convergenciax.com/msp/intermediatecerts/localhost-8056.pem
+2023/07/11 22:58:03 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/peer0@org2.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:58:03 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/int/clients/peer0@org2.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://peer0@org2.convergenciax.com:peerpw@localhost:8056 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF #--csr.hosts localhost
+issueTLSCertificates -> tls-int 8057 org2.convergenciax.com peer0@org2.convergenciax.com peerpw peer C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF peer0@org2.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin
+2023/07/11 22:58:03 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: peerpw
+fabric-ca-client--register --id.name peer0@org2.convergenciax.com --id.secret peerpw --id.type=peer -u http://admin:adminpw@localhost:8057
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/peer0@org2.convergenciax.com
+2023/07/11 22:58:04 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/peer0@org2.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 22:58:04 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 22:58:04 [INFO] encoded CSR
+2023/07/11 22:58:04 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/peer0@org2.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 22:58:04 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/peer0@org2.convergenciax.com/msp/cacerts/localhost-8057.pem
+2023/07/11 22:58:04 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/peer0@org2.convergenciax.com/msp/intermediatecerts/localhost-8057.pem
+2023/07/11 22:58:04 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/peer0@org2.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 22:58:04 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org2.convergenciax.com/tls-int/clients/peer0@org2.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://peer0@org2.convergenciax.com:peerpw@localhost:8057 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF #--csr.hosts peer0@org2.convergenciax.com,localhost
 
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/org3.convergenciax.com/tls-root/clients/admin
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client enroll -u http://admin:adminpw@localhost:7059 --csr.names "$CSR_NAME_ORG3"
-2023/07/05 18:38:23 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
-2023/07/05 18:38:23 [INFO] generating key: &{A:ecdsa S:256}
-2023/07/05 18:38:23 [INFO] encoded CSR
-2023/07/05 18:38:24 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/msp/signcerts/cert.pem
-2023/07/05 18:38:24 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/msp/cacerts/localhost-7059.pem
-2023/07/05 18:38:24 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/msp/IssuerPublicKey
-2023/07/05 18:38:24 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/msp/IssuerRevocationPublicKey
-jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ fabric-ca-client register --id.name tls.int.ca.org3.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7059
-2023/07/05 18:38:52 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-root/clients/admin/fabric-ca-client-config.yaml
+
+
+jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ ./scripts/03_identityEmitirCertificado.sh 
+
+##################################################################################
+##  ORG3 Se crean MSP: admin, cliente y peer de la organizacion
+##################################################################################
+Emision de certificado para usuario admin identity---------------------
+issueCertificatesPKI -> int 8058 org3.convergenciax.com admin@org3.convergenciax.com adminpw admin C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin
+2023/07/11 23:02:10 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: adminpw
+fabric-ca-client--register: --id.name admin@org3.convergenciax.com --id.secret adminpw --id.type=admin -u http://admin:adminpw@localhost:8058
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin@org3.convergenciax.com
+2023/07/11 23:02:10 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin@org3.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:10 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:10 [INFO] encoded CSR
+2023/07/11 23:02:11 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin@org3.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:11 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin@org3.convergenciax.com/msp/cacerts/localhost-8058.pem
+2023/07/11 23:02:11 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin@org3.convergenciax.com/msp/intermediatecerts/localhost-8058.pem
+2023/07/11 23:02:11 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin@org3.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:11 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin@org3.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://admin@org3.convergenciax.com:adminpw@localhost:8058 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF #--csr.hosts localhost
+issueTLSCertificates -> tls-int 8059 org3.convergenciax.com admin@org3.convergenciax.com adminpw admin C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF admin@org3.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin
+2023/07/11 23:02:11 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: adminpw
+fabric-ca-client--register --id.name admin@org3.convergenciax.com --id.secret adminpw --id.type=admin -u http://admin:adminpw@localhost:8059
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin@org3.convergenciax.com
+2023/07/11 23:02:12 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin@org3.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:12 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:12 [INFO] encoded CSR
+2023/07/11 23:02:12 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin@org3.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:12 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin@org3.convergenciax.com/msp/cacerts/localhost-8059.pem
+2023/07/11 23:02:12 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin@org3.convergenciax.com/msp/intermediatecerts/localhost-8059.pem
+2023/07/11 23:02:12 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin@org3.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:12 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin@org3.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://admin@org3.convergenciax.com:adminpw@localhost:8059 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF #--csr.hosts admin@org3.convergenciax.com,localhost
+Emision de certificado para  cliente identity y cliente TLS--------------
+issueCertificatesPKI -> int 8058 org3.convergenciax.com client@org3.convergenciax.com clientpw client C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin
+2023/07/11 23:02:12 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: clientpw
+fabric-ca-client--register: --id.name client@org3.convergenciax.com --id.secret clientpw --id.type=client -u http://admin:adminpw@localhost:8058
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/client@org3.convergenciax.com
+2023/07/11 23:02:13 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/client@org3.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:13 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:13 [INFO] encoded CSR
+2023/07/11 23:02:13 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/client@org3.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:13 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/client@org3.convergenciax.com/msp/cacerts/localhost-8058.pem
+2023/07/11 23:02:13 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/client@org3.convergenciax.com/msp/intermediatecerts/localhost-8058.pem
+2023/07/11 23:02:13 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/client@org3.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:13 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/client@org3.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://client@org3.convergenciax.com:clientpw@localhost:8058 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF #--csr.hosts localhost
+issueTLSCertificates -> tls-int 8059 org3.convergenciax.com client@org3.convergenciax.com clientpw client C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF client@org3.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin
+2023/07/11 23:02:13 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: clientpw
+fabric-ca-client--register --id.name client@org3.convergenciax.com --id.secret clientpw --id.type=client -u http://admin:adminpw@localhost:8059
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/client@org3.convergenciax.com
+2023/07/11 23:02:14 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/client@org3.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:14 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:14 [INFO] encoded CSR
+2023/07/11 23:02:14 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/client@org3.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:14 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/client@org3.convergenciax.com/msp/cacerts/localhost-8059.pem
+2023/07/11 23:02:14 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/client@org3.convergenciax.com/msp/intermediatecerts/localhost-8059.pem
+2023/07/11 23:02:14 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/client@org3.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:14 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/client@org3.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://client@org3.convergenciax.com:clientpw@localhost:8059 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF #--csr.hosts client@org3.convergenciax.com,localhost
+Emision de certificado para peer nodo identity y para peer server TLS----
+issueCertificatesPKI -> int 8058 org3.convergenciax.com peer0@org3.convergenciax.com peerpw peer C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin
+2023/07/11 23:02:14 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: peerpw
+fabric-ca-client--register: --id.name peer0@org3.convergenciax.com --id.secret peerpw --id.type=peer -u http://admin:adminpw@localhost:8058
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/peer0@org3.convergenciax.com
+2023/07/11 23:02:15 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/peer0@org3.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:15 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:15 [INFO] encoded CSR
+2023/07/11 23:02:15 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/peer0@org3.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:15 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/peer0@org3.convergenciax.com/msp/cacerts/localhost-8058.pem
+2023/07/11 23:02:15 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/peer0@org3.convergenciax.com/msp/intermediatecerts/localhost-8058.pem
+2023/07/11 23:02:15 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/peer0@org3.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:15 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/int/clients/peer0@org3.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://peer0@org3.convergenciax.com:peerpw@localhost:8058 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF #--csr.hosts localhost
+issueTLSCertificates -> tls-int 8059 org3.convergenciax.com peer0@org3.convergenciax.com peerpw peer C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF peer0@org3.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin
+2023/07/11 23:02:15 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: peerpw
+fabric-ca-client--register --id.name peer0@org3.convergenciax.com --id.secret peerpw --id.type=peer -u http://admin:adminpw@localhost:8059
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/peer0@org3.convergenciax.com
+2023/07/11 23:02:16 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/peer0@org3.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:16 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:16 [INFO] encoded CSR
+2023/07/11 23:02:16 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/peer0@org3.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:16 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/peer0@org3.convergenciax.com/msp/cacerts/localhost-8059.pem
+2023/07/11 23:02:16 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/peer0@org3.convergenciax.com/msp/intermediatecerts/localhost-8059.pem
+2023/07/11 23:02:16 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/peer0@org3.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:16 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/peer0@org3.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://peer0@org3.convergenciax.com:peerpw@localhost:8059 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF #--csr.hosts peer0@org3.convergenciax.com,localhost
+
+##################################################################################
+##  Convergencia  Se crean MSP: admin y orderer
+##################################################################################
+Emision de certificado para usuario admin identity......
+issueCertificatesPKI -> int 8060 convergenciax.com admin@convergenciax.com password admin C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin
+2023/07/11 23:02:16 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
 Password: password
+fabric-ca-client--register: --id.name admin@convergenciax.com --id.secret password --id.type=admin -u http://admin:adminpw@localhost:8060
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin@convergenciax.com
+2023/07/11 23:02:17 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin@convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:17 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:17 [INFO] encoded CSR
+2023/07/11 23:02:17 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin@convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:17 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin@convergenciax.com/msp/cacerts/localhost-8060.pem
+2023/07/11 23:02:17 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin@convergenciax.com/msp/intermediatecerts/localhost-8060.pem
+2023/07/11 23:02:17 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin@convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:17 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin@convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://admin@convergenciax.com:password@localhost:8060 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF #--csr.hosts 
+issueTLSCertificates -> tls-int 8061 convergenciax.com admin@convergenciax.com password admin C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF admin@convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin
+2023/07/11 23:02:18 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: password
+fabric-ca-client--register --id.name admin@convergenciax.com --id.secret password --id.type=admin -u http://admin:adminpw@localhost:8061
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin@convergenciax.com
+2023/07/11 23:02:18 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin@convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:18 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:18 [INFO] encoded CSR
+2023/07/11 23:02:18 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin@convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:18 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin@convergenciax.com/msp/cacerts/localhost-8061.pem
+2023/07/11 23:02:18 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin@convergenciax.com/msp/intermediatecerts/localhost-8061.pem
+2023/07/11 23:02:18 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin@convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:18 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin@convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://admin@convergenciax.com:password@localhost:8061 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF #--csr.hosts admin@convergenciax.com,localhost
+Emision de certificado para orderer nodo identity y orderer server TLS, no es usuario transaciones ...
+issueCertificatesPKI -> int 8060 convergenciax.com orderer.convergenciax.com password orderer C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin
+2023/07/11 23:02:17 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/admin/fabric-ca-client-config.yaml
+Password: password
+fabric-ca-client--register: --id.name orderer.convergenciax.com --id.secret password --id.type=orderer -u http://admin:adminpw@localhost:8060
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/orderer.convergenciax.com
+2023/07/11 23:02:18 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/orderer.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:18 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:18 [INFO] encoded CSR
+2023/07/11 23:02:18 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/orderer.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:18 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/orderer.convergenciax.com/msp/cacerts/localhost-8060.pem
+2023/07/11 23:02:18 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/orderer.convergenciax.com/msp/intermediatecerts/localhost-8060.pem
+2023/07/11 23:02:18 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/orderer.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:18 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/int/clients/orderer.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://orderer.convergenciax.com:password@localhost:8060 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF #--csr.hosts 
+issueTLSCertificates -> tls-int 8061 convergenciax.com orderer.convergenciax.com password orderer C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF orderer.convergenciax.com,localhost
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin
+2023/07/11 23:02:18 [INFO] Configuration file location: /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/admin/fabric-ca-client-config.yaml
+Password: password
+fabric-ca-client--register --id.name orderer.convergenciax.com --id.secret password --id.type=orderer -u http://admin:adminpw@localhost:8061
+FABRIC_CA_CLIENT_HOME-> /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/orderer.convergenciax.com
+2023/07/11 23:02:19 [INFO] Created a default configuration file at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/orderer.convergenciax.com/fabric-ca-client-config.yaml
+2023/07/11 23:02:19 [INFO] generating key: &{A:ecdsa S:256}
+2023/07/11 23:02:19 [INFO] encoded CSR
+2023/07/11 23:02:19 [INFO] Stored client certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/orderer.convergenciax.com/msp/signcerts/cert.pem
+2023/07/11 23:02:19 [INFO] Stored root CA certificate at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/orderer.convergenciax.com/msp/cacerts/localhost-8061.pem
+2023/07/11 23:02:19 [INFO] Stored intermediate CA certificates at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/orderer.convergenciax.com/msp/intermediatecerts/localhost-8061.pem
+2023/07/11 23:02:19 [INFO] Stored Issuer public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/orderer.convergenciax.com/msp/IssuerPublicKey
+2023/07/11 23:02:19 [INFO] Stored Issuer revocation public key at /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/convergenciax.com/tls-int/clients/orderer.convergenciax.com/msp/IssuerRevocationPublicKey
+fabric-ca-client--enroll -u http://orderer.convergenciax.com:password@localhost:8061 --csr.names C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF #--csr.hosts orderer.convergenciax.com,localhost
 jcotrado@convergencia2:~/HLFconvergenciax/external-ca$ 
