@@ -4,7 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 # ConvergenciaX - Activos generables con el proyecto
-./pki-ca
+./pki-ca/
 
 # User-specific files
 *.rsuser
