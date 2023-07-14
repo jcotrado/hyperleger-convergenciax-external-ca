@@ -80,4 +80,14 @@ echo "Starting Intermediate CA.."
 #
 #  Esto genera el keystore y la configuración inicial en la carpeta root/fabric-ca-server-config.yaml
 ###
+
+export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/pki-ca
+rm -R  pki-ca/org1.convergenciax.com/
+rm -R  pki-ca/org2.convergenciax.com/
+rm -R  pki-ca/org3.convergenciax.com/
+rm -R  pki-ca/convergenciax.com/
+
 docker-compose -f docker-compose-ca-root.yaml up -d
+docker-compose -f docker-compose-ca-int.yaml up -d
+
+export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/pki-ca

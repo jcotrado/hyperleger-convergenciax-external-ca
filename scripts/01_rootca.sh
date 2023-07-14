@@ -8,10 +8,10 @@ sudo chown -R jcotrado:jcotrado $EXTERNAL_CA_CFG/pki-ca
 #
 ### Enrola y registra la CA raiz
 #
-export CSR_NAME_CONVERGENCIAX="C=CL,ST=Metropolitana,L=Santiago,O=convergenciax.com,OU=ConvergenciaX-HLF"
+export CSR_NAME_CONVERGENCIAX="C=CL,ST=Metropolitana,L=Santiago,O=Convergenciax,OU=ConvergenciaX-HLF"
 #Enroll bootstrapt identity de root CA
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/convergenciax.com/root/clients/admin
-fabric-ca-client enroll -u http://admin:adminpw@localhost:7060 --csr.names "$CSR_NAME_CONVERGENCIAX" --csr.cn ca.root.convergenciax.com
+fabric-ca-client enroll -u http://admin:adminpw@localhost:7060 --csr.names "$CSR_NAME_CONVERGENCIAX" --csr.cn ca.root.convergenciax.com 
 
 #Registar un "CA intermedia" para root CA
 fabric-ca-client register --id.name int.ca.convergenciax.com --id.secret password --id.attrs 'hf.IntermediateCA=true' -u http://admin:adminpw@localhost:7060

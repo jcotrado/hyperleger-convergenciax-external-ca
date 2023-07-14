@@ -12,22 +12,23 @@ id_type=$6
 csr_names=$7
 csr_hosts=$8
 
-echo "issueCertificatesPKI ->" $ca $ca_port $org  $id_name $id_secret $id_type $csr_names $csr_hosts
+echo "---- issueCertificatesPKI--->" $ca $ca_port $org  $id_name $id_secret $id_type $csr_names $csr_hosts
 
 # issueCertificatesPKI int 8054 org1.convergenciax.com admin@org1.convergenciax.com adminpw admin "$CSR_NAME_ORG1" "localhost"
-#                      $1 $2   $3                        $4                          $5      $6      $7            $8
+#                      $1  $2   $3                        $4                          $5      $6      $7            $8
+
 
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$ca/clients/admin
-echo "FABRIC_CA_CLIENT_HOME->" $FABRIC_CA_CLIENT_HOME
-##registro de nueva identidad $id_name en CA ADMIN (tiene permisos)
+echo "Registro de nueva identidad $id_name en admin de CA ROOT (tiene permisos) : /pki-ca/$org/$ca/clients/admin"
+echo "fabric-ca-client--register: --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$ca_port" 
 fabric-ca-client register --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$ca_port
-#echo "fabric-ca-client--register: --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$ca_port" 
 
-## Enrolar nueva identidad registrada
+
+echo "Solicitud de Certificado de nueva identidad $id_name en admin de CA ROOT  : /pki-ca/$org/$ca/clients/$id_name"
+echo "fabric-ca-client--enroll -u http://$id_name:$id_secret@localhost:$ca_port --csr.names $csr_names --csr.hosts $csr_hosts"
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$ca/clients/$id_name
-echo "FABRIC_CA_CLIENT_HOME->" $FABRIC_CA_CLIENT_HOME
 fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$ca_port --csr.names $csr_names --csr.hosts $csr_hosts
-#echo "fabric-ca-client--enroll -u http://$id_name:$id_secret@localhost:$ca_port --csr.names $csr_names --csr.hosts $csr_hosts"
+
 }
 
 #Emitir un certificado en para conexiones TLS
@@ -42,24 +43,20 @@ id_type=$6
 csr_names=$7
 csr_hosts=$8
 
-echo "issueTLSCertificates ->" $tls $tls_port $org  $id_name $id_secret $id_type $csr_names $csr_hosts
+echo "---- issueTLSCertificates ---> " $tls $tls_port $org  $id_name $id_secret $id_type $csr_names $csr_hosts
 
-##issueTLSCertificates tls-int 8055 org1.convergenciax.com admin@org1.convergenciax.com  admin adminpw "$CSR_NAME_ORG1" "admin@org1.convergenciax.com,localhost"
+##issueTLSCertificates tls-int 8055 org1.convergenciax.com admin@org1.convergenciax.com  adminpw  admin  "$CSR_NAME_ORG1" "admin@org1.convergenciax.com,localhost"
 #                      $1       $2   $3                        $4                          $5      $6      $7         $8
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$tls/clients/admin
-
-echo "FABRIC_CA_CLIENT_HOME->" $FABRIC_CA_CLIENT_HOME
-
-#registro de nueva identidad $id_name en CA ADMIN (tiene permisos)
+echo "Registro de nueva identidad $id_name en admin de TLS ROOT:/pki-ca/$org/$tls/clients/admin"
+echo "fabric-ca-client--register --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$tls_port"
 fabric-ca-client register --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$tls_port
-#echo "fabric-ca-client--register --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$tls_port"
 
-# Enrolar nueva identidad registrada
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$tls/clients/$id_name
-echo "FABRIC_CA_CLIENT_HOME->" $FABRIC_CA_CLIENT_HOME
+echo "Solicitud de Certificado de nueva TLS $id_name en admin de TLS ROOT: pki-ca/$org/$tls/clients/$id_name"
+echo "fabric-ca-client--enroll -u http://$id_name:$id_secret@localhost:$tls_port --csr.names $csr_names --csr.hosts $csr_hosts"
+fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$tls_port --csr.names $csr_names --csr.hosts $csr_hosts --enrollment.profile tls
 
-fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$tls_port --csr.names $csr_names --csr.hosts $csr_hosts
-#echo "fabric-ca-client--enroll -u http://$id_name:$id_secret@localhost:$tls_port --csr.names $csr_names --csr.hosts $csr_hosts"
 }
 
 ##################################################################################
@@ -73,16 +70,16 @@ echo "##########################################################################
 export CSR_NAME_ORG1="C=CL,ST=Metropolitana,L=Santiago,O=Org1,OU=ConvergenciaX-HLF"
 
 #Emision de certificado para usuario admin identity
-#issueCertificatesPKI int 8054 org1.convergenciax.com admin@org1.convergenciax.com adminpw admin "$CSR_NAME_ORG1" "localhost"
-#issueTLSCertificates tls-int 8055 org1.convergenciax.com admin@org1.convergenciax.com adminpw admin "$CSR_NAME_ORG1" "admin@org1.convergenciax.com,localhost"
+issueCertificatesPKI int 8054 org1.convergenciax.com admin@org1.convergenciax.com adminpw admin "$CSR_NAME_ORG1" "localhost"
+issueTLSCertificates tls-int 8055 org1.convergenciax.com admin@org1.convergenciax.com adminpw admin "$CSR_NAME_ORG1" "admin@org1.convergenciax.com,localhost"
 
 #Emision de certificado para  cliente identity y cliente TLS
-#issueCertificatesPKI int 8054 org1.convergenciax.com client@org1.convergenciax.com clientpw client "$CSR_NAME_ORG1" "localhost"
-#issueTLSCertificates tls-int 8055 org1.convergenciax.com client@org1.convergenciax.com clientpw client "$CSR_NAME_ORG1" "client@org1.convergenciax.com,localhost"
+issueCertificatesPKI int 8054 org1.convergenciax.com client@org1.convergenciax.com clientpw client "$CSR_NAME_ORG1" "localhost"
+issueTLSCertificates tls-int 8055 org1.convergenciax.com client@org1.convergenciax.com clientpw client "$CSR_NAME_ORG1" "client@org1.convergenciax.com,localhost"
 
 #Emision de certificado para peer nodo identity y para peer server TLS
-#issueCertificatesPKI int 8054 org1.convergenciax.com peer0@org1.convergenciax.com peerpw peer "$CSR_NAME_ORG1" "localhost"
-#issueTLSCertificates tls-int 8055 org1.convergenciax.com peer0@org1.convergenciax.com peerpw peer "$CSR_NAME_ORG1" "peer0@org1.convergenciax.com,localhost"
+issueCertificatesPKI int 8054 org1.convergenciax.com peer0@org1.convergenciax.com peerpw peer "$CSR_NAME_ORG1" "localhost"
+issueTLSCertificates tls-int 8055 org1.convergenciax.com peer0@org1.convergenciax.com peerpw peer "$CSR_NAME_ORG1" "peer0@org1.convergenciax.com,localhost"
 
 ##################################################################################
 ######### ORG2 Se crean MSP: admin, cliente y peer de la organizacion
@@ -94,16 +91,16 @@ echo "##########################################################################
 export CSR_NAME_ORG2="C=CL,ST=Metropolitana,L=Santiago,O=Org2,OU=ConvergenciaX-HLF"
 
 #echo "Emision de certificado para usuario admin identity---------------------"
-#issueCertificatesPKI int 8056 org2.convergenciax.com admin@org2.convergenciax.com adminpw admin "$CSR_NAME_ORG2" "localhost"
-#issueTLSCertificates tls-int 8057 org2.convergenciax.com admin@org2.convergenciax.com adminpw admin "$CSR_NAME_ORG2" "admin@org2.convergenciax.com,localhost"
+issueCertificatesPKI int 8056 org2.convergenciax.com admin@org2.convergenciax.com adminpw admin "$CSR_NAME_ORG2" "localhost"
+issueTLSCertificates tls-int 8057 org2.convergenciax.com admin@org2.convergenciax.com adminpw admin "$CSR_NAME_ORG2" "admin@org2.convergenciax.com,localhost"
 
 #echo "Emision de certificado para  cliente identity y cliente TLS--------------"
-#issueCertificatesPKI int 8056 org2.convergenciax.com client@org2.convergenciax.com clientpw client "$CSR_NAME_ORG2" "localhost"
-#issueTLSCertificates tls-int 8057 org2.convergenciax.com client@org2.convergenciax.com clientpw client "$CSR_NAME_ORG2" "client@org2.convergenciax.com,localhost"
+issueCertificatesPKI int 8056 org2.convergenciax.com client@org2.convergenciax.com clientpw client "$CSR_NAME_ORG2" "localhost"
+issueTLSCertificates tls-int 8057 org2.convergenciax.com client@org2.convergenciax.com clientpw client "$CSR_NAME_ORG2" "client@org2.convergenciax.com,localhost"
 
 #echo "Emision de certificado para peer nodo identity y para peer server TLS----"
-#issueCertificatesPKI int 8056 org2.convergenciax.com peer0@org2.convergenciax.com peerpw peer "$CSR_NAME_ORG2" "localhost"
-#issueTLSCertificates tls-int 8057 org2.convergenciax.com peer0@org2.convergenciax.com peerpw peer "$CSR_NAME_ORG2" "peer0@org2.convergenciax.com,localhost"
+issueCertificatesPKI int 8056 org2.convergenciax.com peer0@org2.convergenciax.com peerpw peer "$CSR_NAME_ORG2" "localhost"
+issueTLSCertificates tls-int 8057 org2.convergenciax.com peer0@org2.convergenciax.com peerpw peer "$CSR_NAME_ORG2" "peer0@org2.convergenciax.com,localhost"
 
 
 ##########################################################################
@@ -134,14 +131,14 @@ echo "##########################################################################
 echo "##  Convergencia  Se crean MSP: admin y orderer"
 echo "##################################################################################"
 
-export CSR_NAME_CONVERGENCIAX="C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF"
+export CSR_NAME_CONVERGENCIAX="C=CL,ST=Metropolitana,L=Santiago,O=Orderer,OU=ConvergenciaX-HLF"
 
 echo "Emision de certificado para usuario admin identity......"
-issueCertificatesPKI int 8060 convergenciax.com admin@convergenciax.com  password admin  "$CSR_NAME_CONVERGENCIAX" ""
+issueCertificatesPKI int 8060 convergenciax.com admin@convergenciax.com  password admin  "$CSR_NAME_CONVERGENCIAX" "localhost"
 issueTLSCertificates tls-int 8061 convergenciax.com admin@convergenciax.com password admin  "$CSR_NAME_CONVERGENCIAX" "admin@convergenciax.com,localhost"
 
 echo "Emision de certificado para orderer nodo identity y orderer server TLS, no es usuario transaciones ..."
-issueCertificatesPKI int 8060 convergenciax.com orderer.convergenciax.com  password orderer  "$CSR_NAME_CONVERGENCIAX" ""
+issueCertificatesPKI int 8060 convergenciax.com orderer.convergenciax.com  password orderer  "$CSR_NAME_CONVERGENCIAX" "localhost"
 issueTLSCertificates tls-int 8061 convergenciax.com orderer.convergenciax.com  password orderer  "$CSR_NAME_CONVERGENCIAX" "orderer.convergenciax.com,localhost"
 
 
