@@ -87,7 +87,14 @@ rm -R  pki-ca/org2.convergenciax.com/
 rm -R  pki-ca/org3.convergenciax.com/
 rm -R  pki-ca/convergenciax.com/
 
+
+cd /home/jcotrado/HLFconvergenciax/external-ca
+export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/pki-ca
+
 docker-compose -f docker-compose-ca-root.yaml up -d
 docker-compose -f docker-compose-ca-int.yaml up -d
 
-export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/pki-ca
+./script/01_rootca.sh
+./script/01_intca.sh
+./scripts/03_identityEmitirCertificado.sh
+./scripts/04_msp.sh

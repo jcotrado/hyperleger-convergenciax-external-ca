@@ -55,7 +55,7 @@ echo "-----------------------------------------------------------"
 
 mkdir -p $TLS_DIRECTORY_PATH
 
-cp $EXTERNAL_CA_CFG/$org/tls-int/ca/ca-chain.pem $TLS_DIRECTORY_PATH/ca.crt
+cp $EXTERNAL_CA_CFG/$org/tls-int/ca-chain.pem $TLS_DIRECTORY_PATH/ca.crt
 
 cp $EXTERNAL_CA_CFG/$org/tls-int/clients/$name/msp/signcerts/cert.pem $TLS_DIRECTORY_PATH/server.crt
 
@@ -64,27 +64,50 @@ cp $key $TLS_DIRECTORY_PATH/server.key
 
 }
 
+
+echo "########################################"
+echo "# createChannelMSP"
+echo "########################################"
 createChannelMSP org1.convergenciax.com
-#createChannelMSP org2.convergenciax.com
-#createChannelMSP org3.convergenciax.com
-#createChannelMSP acme.com
+createChannelMSP org2.convergenciax.com
+createChannelMSP org3.convergenciax.com
+createChannelMSP convergenciax.com
+
+echo "########################################"
+echo "# org1, Org2 y Org3 a sus Peers "
+echo "########################################"
 
 createLocalMSP org1.convergenciax.com peer0@org1.convergenciax.com peer
 createTLSDirectory org1.convergenciax.com peer0@org1.convergenciax.com peer
 
+createLocalMSP org2.convergenciax.com peer0@org2.convergenciax.com peer
+createTLSDirectory org2.convergenciax.com peer0@org2.convergenciax.com peer
 
+createLocalMSP org1.convergenciax.com peer0@org1.convergenciax.com peer
+createTLSDirectory org2.convergenciax.com peer0@org2.convergenciax.com peer
+
+echo "########################################"
+echo "# Orderer "
+echo "########################################"
 
 # Orderer
-#createLocalMSP acme.com orderer.convergenciax.com orderer
-#createTLSDirectory acme.com orderer.convergenciax.com orderer
+createLocalMSP convergenciax.com orderer.convergenciax.com orderer
+createTLSDirectory convergenciax.com orderer.convergenciax.com orderer
+
+echo "########################################"
+echo "# Admins User de Org1, Org2 , Org3 y convergenciax "
+echo "########################################"
 
 # Admins
-
 createLocalMSP org1.convergenciax.com admin@org1.convergenciax.com user
 createTLSDirectory org1.convergenciax.com admin@org1.convergenciax.com user
 
+createLocalMSP org2.convergenciax.com admin@org2.convergenciax.com user
+createTLSDirectory org2.convergenciax.com admin@org2.convergenciax.com user
 
+createLocalMSP org3.convergenciax.com admin@org3.convergenciax.com user
+createTLSDirectory org3.convergenciax.com admin@org3.convergenciax.com user
 
-#createLocalMSP acme.com admin@acme.com user
-#createTLSDirectory acme.com admin@acme.com user
+createLocalMSP convergenciax.com admin@convergenciax.com user
+createTLSDirectory convergenciax.com admin@convergenciax.com user
 
