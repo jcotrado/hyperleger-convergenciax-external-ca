@@ -85,7 +85,7 @@ tls:
 #############################################################################
 ca:
   # Name of this CA
-  name:
+  name: root.ca.convergenciax.com
   # Key file (is only used to import a private key into BCCSP)
   keyfile:
   # Certificate file (default: ca-cert.pem)
@@ -308,18 +308,18 @@ signing:
 #  if the server creates a self-signed TLS certificate.
 ###########################################################################
 csr:
-   cn: fabric-ca-server
+   cn: root.ca.convergenciax.com
    keyrequest:
      algo: ecdsa
      size: 256
    names:
-      - C: US
-        ST: "North Carolina"
-        L:
-        O: Hyperledger
-        OU: Fabric
+      - C: CL
+        ST: Metropolitana
+        L: Santiago
+        O: ConvergenciaX
+        OU: ConvergenciaX-HLF
    hosts:
-     - 9bd63b2bea75
+     - root.ca.convergenciax.com
      - localhost
    ca:
       expiry: 131400h
