@@ -1,6 +1,10 @@
 export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca
 sudo chown -R jcotrado:jcotrado $EXTERNAL_CA_CFG/pki-ca
 
+echo "####################################################################################################"
+echo "# CONVERGENCIAX - CREACION DE USUARIO/CLIENTE admin en raiz de confianza intermedia (int y tls-int)"
+echo "####################################################################################################"
+
 
 ##################
 #CONVERGENCIAX

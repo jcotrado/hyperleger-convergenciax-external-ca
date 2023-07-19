@@ -59,8 +59,10 @@ fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$tls_port --csr.
 
 }
 
+ 
+
 ##################################################################################
-######### ORG1 Se crean MSP: admin, cliente y peer de la organizacion
+######### ORG1 Se crean MSP: admin, client, ordereres y peer de la organizaciones
 ##################################################################################
 
 echo "##################################################################################"
