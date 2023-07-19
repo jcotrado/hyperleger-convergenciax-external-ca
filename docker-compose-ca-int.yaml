@@ -18,7 +18,7 @@ services:
       - "8060:7054"
     volumes:
       - ./pki-ca/convergenciax.com/int:/etc/hyperledger/fabric-ca-server
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.convergenciax.com:password@ca.root.convergenciax.com:7054'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.convergenciax.com:password@root.ca.convergenciax.com:7054'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -46,7 +46,7 @@ services:
     volumes:
       - ./pki-ca/org1.convergenciax.com/int:/etc/hyperledger/fabric-ca-server
     ## El siguiente comando, conecta el certificado Intermedio con el certificado raiz
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.org1.convergenciax.com:password@ca.root.org1.convergenciax.com:7054'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.org1.convergenciax.com:password@root.ca.org1.convergenciax.com:7054'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -73,7 +73,7 @@ services:
       - "8056:7054"
     volumes:
       - ./pki-ca/org2.convergenciax.com/int:/etc/hyperledger/fabric-ca-server
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.org2.convergenciax.com:password@ca.root.org2.convergenciax.com:7054'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.org2.convergenciax.com:password@root.ca.org2.convergenciax.com:7054'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic
@@ -101,7 +101,7 @@ services:
       - "8058:7054"
     volumes:
       - ./pki-ca/org3.convergenciax.com/int:/etc/hyperledger/fabric-ca-server
-    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.org3.convergenciax.com:password@ca.root.org3.convergenciax.com:7054'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -u http://int.ca.org3.convergenciax.com:password@root.ca.org3.convergenciax.com:7054'
     networks:
       # ---CHANGED--- our  is called "basic"
       - basic

@@ -83,8 +83,12 @@ createTLSDirectory org1.convergenciax.com peer0@org1.convergenciax.com peer
 createLocalMSP org2.convergenciax.com peer0@org2.convergenciax.com peer
 createTLSDirectory org2.convergenciax.com peer0@org2.convergenciax.com peer
 
-createLocalMSP org1.convergenciax.com peer0@org1.convergenciax.com peer
+createLocalMSP org2.convergenciax.com peer0@org2.convergenciax.com peer
 createTLSDirectory org2.convergenciax.com peer0@org2.convergenciax.com peer
+
+createLocalMSP org3.convergenciax.com peer0@org3.convergenciax.com peer
+createTLSDirectory org3.convergenciax.com peer0@org3.convergenciax.com peer
+
 
 echo "########################################"
 echo "# Orderer "

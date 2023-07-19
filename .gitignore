@@ -398,4 +398,11 @@ FodyWeavers.xsd
 *.sln.iml
 
 #carpetas personalizadas
-pki-ca/
+pki-ca/convergenciax.com/root/msp
+pki-ca/convergenciax.com/tls-root/msp
+pki-ca/org1.convergenciax.com/root/msp
+pki-ca/org1.convergenciax.com/tls-root/msp
+pki-ca/org2.convergenciax.com/root/msp
+pki-ca/org2.convergenciax.com/tls-root/msp
+pki-ca/org3.convergenciax.com/root/msp
+pki-ca/org3.convergenciax.com/tls-root/msp
