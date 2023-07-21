@@ -12,22 +12,21 @@ id_type=$6
 csr_names=$7
 csr_hosts=$8
 
-echo "---- issueCertificatesPKI--->" $ca $ca_port $org  $id_name $id_secret $id_type $csr_names $csr_hosts
-
+#echo "---- issueCertificatesPKI--->" $ca $ca_port $org  $id_name $id_secret $id_type $csr_names $csr_hosts
 # issueCertificatesPKI int 8054 org1.convergenciax.com admin@org1.convergenciax.com adminpw admin "$CSR_NAME_ORG1" "localhost"
 #                      $1  $2   $3                        $4                          $5      $6      $7            $8
 
 
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$ca/clients/admin
-echo "Registro de nueva identidad $id_name en admin de CA ROOT (tiene permisos) : /pki-ca/$org/$ca/clients/admin"
+#echo "Registro de nueva identidad $id_name en admin de CA ROOT (tiene permisos) : /pki-ca/$org/$ca/clients/admin"
 echo "fabric-ca-client--register: --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$ca_port" 
 fabric-ca-client register --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$ca_port
 
 
-echo "Solicitud de Certificado de nueva identidad $id_name en admin de CA ROOT  : /pki-ca/$org/$ca/clients/$id_name"
-echo "fabric-ca-client--enroll -u http://$id_name:$id_secret@localhost:$ca_port --csr.names $csr_names --csr.hosts $csr_hosts"
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$ca/clients/$id_name
-fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$ca_port --csr.names $csr_names --csr.hosts $csr_hosts
+#echo "Solicitud de Certificado de nueva identidad $id_name en admin de CA ROOT  : /pki-ca/$org/$ca/clients/$id_name"
+echo "fabric-ca-client--enroll -u http://$id_name:$id_secret@localhost:$ca_port --csr.names $csr_names --csr.hosts $csr_hosts" 
+fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$ca_port --csr.names $csr_names --csr.hosts $csr_hosts 
 
 }
 
@@ -48,13 +47,16 @@ echo "---- issueTLSCertificates ---> " $tls $tls_port $org  $id_name $id_secret 
 ##issueTLSCertificates tls-int 8055 org1.convergenciax.com admin@org1.convergenciax.com  adminpw  admin  "$CSR_NAME_ORG1" "admin@org1.convergenciax.com,localhost"
 #                      $1       $2   $3                        $4                          $5      $6      $7         $8
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$tls/clients/admin
-echo "Registro de nueva identidad $id_name en admin de TLS ROOT:/pki-ca/$org/$tls/clients/admin"
-echo "fabric-ca-client--register --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$tls_port"
-fabric-ca-client register --id.name $id_name --id.secret $id_secret --id.type=$id_type -u http://admin:adminpw@localhost:$tls_port
+#echo "Registro de nueva identidad $id_name en admin de TLS ROOT:/pki-ca/$org/$tls/clients/admin"
+echo "fabric-ca-client--register --id.name $id_name --id.secret $id_secret --id.type $id_type -u http://admin:adminpw@localhost:$tls_port"
+
+fabric-ca-client register --id.name $id_name --id.secret $id_secret --id.type $id_type -u http://admin:adminpw@localhost:$tls_port
+
 
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$tls/clients/$id_name
-echo "Solicitud de Certificado de nueva TLS $id_name en admin de TLS ROOT: pki-ca/$org/$tls/clients/$id_name"
+#echo "Solicitud de Certificado de nueva TLS $id_name en admin de TLS ROOT: pki-ca/$org/$tls/clients/$id_name"
 echo "fabric-ca-client--enroll -u http://$id_name:$id_secret@localhost:$tls_port --csr.names $csr_names --csr.hosts $csr_hosts"
+
 fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$tls_port --csr.names $csr_names --csr.hosts $csr_hosts --enrollment.profile tls
 
 }

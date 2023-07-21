@@ -92,9 +92,9 @@ cd /home/jcotrado/HLFconvergenciax/external-ca
 export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/pki-ca
 
 docker-compose -f docker-compose-ca-root.yaml up -d
-./script/01_rootca.sh
+./scripts/01_rootca.sh
 docker-compose -f docker-compose-ca-int.yaml up -d
-./script/01_intca.sh
+./scripts/02_intca.sh
 
 ./scripts/03_identityEmitirCertificado.sh
 ./scripts/04_msp.sh

@@ -1,14 +1,14 @@
 NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: intermediatecerts/ca-cert.pem
+    Certificate: cacerts/ca.org1.convergenciax.com-cert.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: intermediatecerts/ca-cert.pem
+    Certificate: cacerts/ca.org1.convergenciax.com-cert.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: intermediatecerts/ca-cert.pem
+    Certificate: cacerts/ca.org1.convergenciax.com-cert.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: intermediatecerts/ca-cert.pem
+    Certificate: cacerts/ca.org1.convergenciax.com-cert.pem
     OrganizationalUnitIdentifier: orderer
