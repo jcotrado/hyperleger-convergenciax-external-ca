@@ -313,11 +313,11 @@ csr:
      algo: ecdsa
      size: 256
    names:
-      - C: US
-        ST: "North Carolina"
-        L:
-        O: Hyperledger
-        OU: Fabric
+      - C: CL
+        ST: Metropolitana
+        L: Santiago
+        O: Org3
+        OU: ConvergenciaX-HLF
    hosts:
      - tls.int.ca.org3.convergenciax.com
      - localhost
