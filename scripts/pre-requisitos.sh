@@ -87,7 +87,6 @@ rm -R  pki-ca/org2.convergenciax.com/
 rm -R  pki-ca/org3.convergenciax.com/
 rm -R  pki-ca/convergenciax.com/
 
-
 cd /home/jcotrado/HLFconvergenciax/external-ca
 export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/pki-ca
 

@@ -87,7 +87,7 @@ ca:
   # Name of this CA
   name:
   # Key file (is only used to import a private key into BCCSP)
-  keyfile:
+  keyfile: int.ca.convergenciax.com
   # Certificate file (default: ca-cert.pem)
   certfile:
   # Chain file
@@ -316,7 +316,7 @@ csr:
       - C: CL
         ST: Metropolitana
         L: Santiago
-        O: ConvergenciaX
+        O: Convergenciax
         OU: ConvergenciaX-HLF
    hosts:
      - int.ca.convergenciax.com

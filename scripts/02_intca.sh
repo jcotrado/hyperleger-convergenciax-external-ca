@@ -8,12 +8,15 @@ echo "##########################################################################
 
 ##################
 #CONVERGENCIAX
+#
+# 1) enroll de usuario admin en intermedio CA
+# 1) enroll de usuario admin en intermedio tls
 ##################
 echo "##################"
 echo "# CONVERGENCIAX"
 echo "##################"
 
-export CSR_NAME_CONVERGENCIAX="C=CL,ST=Metropolitana,L=Santiago,O=ConvergenciaX,OU=ConvergenciaX-HLF"
+export CSR_NAME_CONVERGENCIAX="C=CL,ST=Metropolitana,L=Santiago,O=Convergenciax,OU=ConvergenciaX-HLF"
 #Enroll bootstrapt identity of int CA
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/convergenciax.com/int/clients/admin
 fabric-ca-client enroll -u http://admin:adminpw@localhost:8060 --csr.names "$CSR_NAME_CONVERGENCIAX" #--csr.cn int.ca.convergenciax.com
@@ -58,7 +61,7 @@ fabric-ca-client enroll -u http://admin:adminpw@localhost:8057 --csr.names "$CSR
 echo "##################"
 echo "# Org3"
 echo "##################"
-export CSR_NAME_ORG3="C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=int.org3.convergenciax.com"
+export CSR_NAME_ORG3="C=CL,ST=Metropolitana,L=Santiago,O=Org3,OU=ConvergenciaX-HLF"
 #Enroll bootstrapt identity of int CA
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/org3.convergenciax.com/int/clients/admin
 fabric-ca-client enroll -u http://admin:adminpw@localhost:8058 --csr.names "$CSR_NAME_ORG3" # --csr.cn int.ca.org3.convergenciax.com

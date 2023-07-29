@@ -85,7 +85,7 @@ tls:
 #############################################################################
 ca:
   # Name of this CA
-  name:
+  name: tls.int.ca.convergenciax.com
   # Key file (is only used to import a private key into BCCSP)
   keyfile:
   # Certificate file (default: ca-cert.pem)
@@ -316,7 +316,7 @@ csr:
       - C: CL
         ST: Metropolitana
         L: Santiago
-        O: ConvergenciaX
+        O: Convergenciax
         OU: ConvergenciaX-HLF
    hosts:
      - tls.int.ca.convergenciax.com
