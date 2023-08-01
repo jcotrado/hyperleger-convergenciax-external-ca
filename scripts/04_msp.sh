@@ -14,6 +14,8 @@ mkdir -p $MSP_PATH/cacerts && cp $EXTERNAL_CA_CFG/$org/root/ca-cert.pem $MSP_PAT
 mkdir -p $MSP_PATH/intermediatecerts && cp $EXTERNAL_CA_CFG/$org/int/ca-cert.pem $MSP_PATH/intermediatecerts/ca-cert.pem
 mkdir -p $MSP_PATH/tlscacerts && cp $EXTERNAL_CA_CFG/$org/tls-root/ca-cert.pem $MSP_PATH/tlscacerts/ca-cert.pem
 mkdir -p $MSP_PATH/tlsintermediatecerts  && cp $EXTERNAL_CA_CFG/$org/tls-int/ca-cert.pem $MSP_PATH/tlsintermediatecerts/ca-cert.pem
+echo " "
+echo " "
 
 }
 
@@ -38,6 +40,8 @@ mkdir -p $LOCAL_MSP_PATH/tlscacerts && cp $EXTERNAL_CA_CFG/$org/tls-root/ca-cert
 mkdir -p $LOCAL_MSP_PATH/tlsintermediatecerts  && cp $EXTERNAL_CA_CFG/$org/tls-int/ca-cert.pem $LOCAL_MSP_PATH/tlsintermediatecerts/ca-cert.pem
 mkdir -p $LOCAL_MSP_PATH/signcerts  && cp -r $EXTERNAL_CA_CFG/$org/int/clients/$name/msp/signcerts $LOCAL_MSP_PATH/
 mkdir -p $LOCAL_MSP_PATH/keystore  && cp -r $EXTERNAL_CA_CFG/$org/int/clients/$name/msp/keystore $LOCAL_MSP_PATH/
+echo " "
+echo " "
 
 }
 
@@ -60,6 +64,8 @@ cp $EXTERNAL_CA_CFG/$org/tls-int/clients/$name/msp/signcerts/cert.pem $TLS_DIREC
 key=$(find $EXTERNAL_CA_CFG/$org/tls-int/clients/$name/msp/keystore -name *_sk)
 echo "key:[$key] "
 cp $key $TLS_DIRECTORY_PATH/server.key
+echo " "
+echo " "
 
 }
 
@@ -80,10 +86,11 @@ createChannelMSP convergenciax.com
 createChannelMSP org1.convergenciax.com
 createChannelMSP org2.convergenciax.com
 createChannelMSP org3.convergenciax.com
-
+echo " "
+echo " "
 
 echo "########################################"
-echo "# org1, Org2 y Org3 a sus Peers "
+echo "# crear MSP y TLS org1, Org2 y Org3 a sus Peers "
 echo "########################################"
 
 createLocalMSP org1.convergenciax.com peer0.org1.convergenciax.com peer
@@ -97,18 +104,31 @@ createTLSDirectory org2.convergenciax.com peer0.org2.convergenciax.com peer
 
 createLocalMSP org3.convergenciax.com peer0.org3.convergenciax.com peer
 createTLSDirectory org3.convergenciax.com peer0.org3.convergenciax.com peer
+echo " "
+echo " "
 
 
 echo "########################################"
-echo "# Orderer "
+echo "# Crear Orderer "
 echo "########################################"
 
 # Orderer
 createLocalMSP convergenciax.com orderer.convergenciax.com orderer
 createTLSDirectory convergenciax.com orderer.convergenciax.com orderer
 
+createLocalMSP org1.convergenciax.com orderer.org1.convergenciax.com orderer
+createTLSDirectory org1.convergenciax.com orderer.org1.convergenciax.com orderer
+
+createLocalMSP org2.convergenciax.com orderer.org2.convergenciax.com orderer
+createTLSDirectory org2.convergenciax.com orderer.org2.convergenciax.com orderer
+
+createLocalMSP org3.convergenciax.com orderer.org3.convergenciax.com orderer
+createTLSDirectory org3.convergenciax.com orderer.org3.convergenciax.com orderer
+echo " "
+echo " "
+
 echo "########################################"
-echo "# Admins User de Org1, Org2 , Org3 y convergenciax "
+echo "# Crear Admins User de Org1, Org2 , Org3 y convergenciax "
 echo "########################################"
 
 # Admins
@@ -124,123 +144,26 @@ createTLSDirectory org3.convergenciax.com admin@org3.convergenciax.com user
 createLocalMSP convergenciax.com admin@convergenciax.com user
 createTLSDirectory convergenciax.com admin@convergenciax.com user
 
-
-########
-# Copiar config.yaml
-########
+echo " "
+echo " "
 
 
-#echo "------- Copiar en convergenciax.com ----"
-
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/int/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/int/clients/admin@convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/int/clients/orderer.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/int/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/orderers/orderer.convergenciax.com/msp
-
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/root/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/root/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/tls-int/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/tls-int/clients/admin@convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/tls-int/clients/orderer.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/tls-int/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/tls-root/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/tls-root/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/convergenciax.com/users/admin@convergenciax.com/msp
-
-#echo "-------  copiar en org1.convergenciax.com ----"
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/int/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/int/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/int/clients/admin@org1.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/int/clients/client@org1.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/int/clients/peer0@org1.convergenciax.com/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/peers/peer0@org1.convergenciax.com/msp
-
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/root/clients/admin/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/root/msp
-
-
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/tls-int/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/tls-int/clients/admin@org1.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/tls-int/clients/client@org1.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/tls-int/clients/peer0@org1.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/tls-int/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/tls-root/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/tls-root/clients/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org1.convergenciax.com/users/admin@org1.convergenciax.com/msp
-
-#echo "-------  copiar en org2.convergenciax.com ----"
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/int/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/int/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/int/clients/admin@org2.convergenciax.com/msp
-##cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/int/clients/client@org2.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/int/clients/peer0@org2.convergenciax.com/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/peers/peer0@org2.convergenciax.com/msp
-
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/root/clients/admin/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/root/msp
-
-
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/tls-int/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/tls-int/clients/admin@org2.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/tls-int/clients/client@org2.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/tls-int/clients/peer0@org2.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/tls-int/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/tls-root/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/tls-root/clients/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org2.convergenciax.com/users/admin@org2.convergenciax.com/msp
-
-
-#echo "-------  copiar en org3.convergenciax.com ----"
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/int/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/int/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/int/clients/admin@org3.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/int/clients/client@org3.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/int/clients/peer0@org3.convergenciax.com/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/peers/peer0@org3.convergenciax.com/msp
-
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/root/clients/admin/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/root/msp
-
-
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/tls-int/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/tls-int/clients/admin@org3.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/tls-int/clients/client@org3.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/tls-int/clients/peer0@org3.convergenciax.com/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/tls-int/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/tls-root/clients/admin/msp
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/tls-root/clients/msp
-
-#cp $EXTERNAL_CA_CFG/config.yaml $EXTERNAL_CA_CFG/org3.convergenciax.com/users/admin@org3.convergenciax.com/msp
+###
+#
+# NOTA : jcotrado++ 20230731
+#   A veces el pki de hyperledger genera mas de 1 keystore al momento de emitir los certificados, y da erroes como el siguente:
+#  
+#   -----------------------------------------------------------
+#   createTLSDirectory - Copiando certificados a TLS [/home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/peers/peer0.org1.convergenciax.com/tls]
+#   -----------------------------------------------------------
+#   key:[
+#   /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0.org1.convergenciax.com/msp/keystore/e5b7f5d124146e508f2c83b84093e2b9eae4c36355b8a53ebef43451cd7d9933_sk
+#   /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0.org1.convergenciax.com/msp/keystore/0c8103a604621bdd3f1b716a56080c8bc89c1581b90508beac193529596e3f7d_sk
+#   ] 
+#   cp: target '/home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/peers/peer0.org1.convergenciax.com/tls/server.key' is not a directory
+# 
+# Esto significa que se encontraron/home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/orderer.org3.convergenciax.com/msp/keystore 2 keystores en la misma carpeta y el script no supo cual renombrar como  tls/server.key, lo resolvi 
+# renombrando manualmente el keystore a server.key y moviendolo a mano a la carpeta de destino.
+#
+#
+###
