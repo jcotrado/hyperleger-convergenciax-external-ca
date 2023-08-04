@@ -1,3 +1,10 @@
+# Copyright ConvergenciaX Spa.
+# Autor: Joel Cotrado Vargas <joel.cotrado@gmail.com>
+# Date: 01-04-2023
+#
+# Implementación de PKI externa
+#
+
 #Instalar y configurar golanguaje
 #wget -c https://golang.org/dl/go1.20.5.linux-amd64.tar.gz
 #sudo tar -C /usr/local -xvzf go1.20.5.linux-amd64.tar.gz

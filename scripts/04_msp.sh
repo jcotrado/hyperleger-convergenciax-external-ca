@@ -1,3 +1,9 @@
+# Copyright ConvergenciaX Spa.
+# Autor: Joel Cotrado Vargas <joel.cotrado@gmail.com>
+# Date: 01-04-2023
+#
+# Implementación de PKI externa
+#
 export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/pki-ca
 sudo chown -R jcotrado:jcotrado $EXTERNAL_CA_CFG
 

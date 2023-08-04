@@ -1,3 +1,9 @@
+# Copyright ConvergenciaX Spa.
+# Autor: Joel Cotrado Vargas <joel.cotrado@gmail.com>
+# Date: 01-04-2023
+#
+# Implementación de PKI externa
+#
 cd /home/jcotrado/HLFconvergenciax/external-ca
 
 #rmdir --ignore-fail-on-non-empty ./pki-ca/convergenciax.com
