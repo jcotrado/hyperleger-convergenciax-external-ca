@@ -316,7 +316,7 @@ csr:
       - C: CL
         ST: Metropolitana
         L: Santiago
-        O: Org1
+        O: org1.convergenciax.com
         OU: ConvergenciaX-HLF
    hosts:
      - tls.root.ca.org1.convergenciax.com

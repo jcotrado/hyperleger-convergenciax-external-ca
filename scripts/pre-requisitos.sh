@@ -29,7 +29,7 @@ sudo apt install libtool libltdl-dev
 export EXTERNAL_CA_CFG=/home/jcotrado/HLFconvergenciax/external-ca/pki-ca
 
 
-mkdir -p $EXTERNAL_CA_CFG/convergenciax.com/{int,root,root/private,root/certs,tls-int,tls-root,tls-root/private,tls-root/certs }
+mkdir -p $EXTERNAL_CA_CFG/convergenciax.com/{int,root,tls-int,tls-root}
 mkdir -p $EXTERNAL_CA_CFG/org1.convergenciax.com/{int,root,tls-int,tls-root}
 mkdir -p $EXTERNAL_CA_CFG/org2.convergenciax.com/{int,root,tls-int,tls-root}
 mkdir -p $EXTERNAL_CA_CFG/org3.convergenciax.com/{int,root,tls-int,tls-root}

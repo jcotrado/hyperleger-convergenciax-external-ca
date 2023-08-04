@@ -22,7 +22,7 @@ fabric-ca-client register --id.name $id_name --id.secret $id_secret --id.type $i
 
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$ca/clients/$id_name
 echo "issueCertificatesPKI: Enroll de nueva identidad $id_name en [$FABRIC_CA_CLIENT_HOME]"
-fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$ca_port --csr.names $csr_names --csr.hosts $csr_hosts 
+fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$ca_port --csr.names "$csr_names" --csr.hosts "$csr_hosts"
 
 }
 
@@ -49,7 +49,7 @@ fabric-ca-client register --id.name $id_name --id.secret $id_secret --id.type $i
 
 export FABRIC_CA_CLIENT_HOME=$EXTERNAL_CA_CFG/pki-ca/$org/$tls/clients/$id_name
 echo "issueTLSCertificates: Enroll de nueva identidad TLS $id_name en [$FABRIC_CA_CLIENT_HOME]"
-fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$tls_port --csr.names $csr_names --csr.hosts $csr_hosts --enrollment.profile tls
+fabric-ca-client enroll -u http://$id_name:$id_secret@localhost:$tls_port --csr.names "$csr_names" --csr.hosts "$csr_hosts" --enrollment.profile tls
 
 }
 
@@ -137,7 +137,6 @@ issueTLSCertificates tls-int 8061 convergenciax.com admin@convergenciax.com admi
 
 issueCertificatesPKI int 8060 convergenciax.com orderer.convergenciax.com ordererpw orderer "$CSR_NAME_CONVERGENCIAX" "localhost"
 issueTLSCertificates tls-int 8061 convergenciax.com orderer.convergenciax.com ordererpw orderer "$CSR_NAME_CONVERGENCIAX" "orderer.convergenciax.com,localhost"
-
 
 ########################################
 # Prueba manual emision msp

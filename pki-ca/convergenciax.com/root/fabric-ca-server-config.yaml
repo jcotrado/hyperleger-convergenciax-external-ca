@@ -316,7 +316,7 @@ csr:
       - C: CL
         ST: Metropolitana
         L: Santiago
-        O: Convergenciax
+        O: convergenciax.com
         OU: ConvergenciaX-HLF
    hosts:
      - root.ca.convergenciax.com

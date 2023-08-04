@@ -14,8 +14,10 @@ mkdir -p $MSP_PATH/cacerts && cp $EXTERNAL_CA_CFG/$org/root/ca-cert.pem $MSP_PAT
 mkdir -p $MSP_PATH/intermediatecerts && cp $EXTERNAL_CA_CFG/$org/int/ca-cert.pem $MSP_PATH/intermediatecerts/ca-cert.pem
 mkdir -p $MSP_PATH/tlscacerts && cp $EXTERNAL_CA_CFG/$org/tls-root/ca-cert.pem $MSP_PATH/tlscacerts/ca-cert.pem
 mkdir -p $MSP_PATH/tlsintermediatecerts  && cp $EXTERNAL_CA_CFG/$org/tls-int/ca-cert.pem $MSP_PATH/tlsintermediatecerts/ca-cert.pem
+cp $EXTERNAL_CA_CFG/config.yaml $MSP_PATH
 echo " "
 echo " "
+
 
 }
 
@@ -61,7 +63,7 @@ mkdir -p $TLS_DIRECTORY_PATH
 cp $EXTERNAL_CA_CFG/$org/tls-int/ca-chain.pem $TLS_DIRECTORY_PATH/ca.crt
 cp $EXTERNAL_CA_CFG/$org/tls-int/clients/$name/msp/signcerts/cert.pem $TLS_DIRECTORY_PATH/server.crt
 
-key=$(find $EXTERNAL_CA_CFG/$org/tls-int/clients/$name/msp/keystore -name *_sk)
+key=$(find $EXTERNAL_CA_CFG/$org/tls-int/clients/$name/msp/keystore -name *_sk)    
 echo "key:[$key] "
 cp $key $TLS_DIRECTORY_PATH/server.key
 echo " "
@@ -82,10 +84,11 @@ echo "########################################"
 echo "# createChannelMSP"
 echo "########################################"
 
-createChannelMSP convergenciax.com
+
 createChannelMSP org1.convergenciax.com
 createChannelMSP org2.convergenciax.com
 createChannelMSP org3.convergenciax.com
+createChannelMSP convergenciax.com
 echo " "
 echo " "
 
@@ -95,9 +98,6 @@ echo "########################################"
 
 createLocalMSP org1.convergenciax.com peer0.org1.convergenciax.com peer
 createTLSDirectory org1.convergenciax.com peer0.org1.convergenciax.com peer
-
-createLocalMSP org2.convergenciax.com peer0.org2.convergenciax.com peer
-createTLSDirectory org2.convergenciax.com peer0.org2.convergenciax.com peer
 
 createLocalMSP org2.convergenciax.com peer0.org2.convergenciax.com peer
 createTLSDirectory org2.convergenciax.com peer0.org2.convergenciax.com peer
@@ -161,7 +161,7 @@ echo " "
 #   /home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/tls-int/clients/peer0.org1.convergenciax.com/msp/keystore/0c8103a604621bdd3f1b716a56080c8bc89c1581b90508beac193529596e3f7d_sk
 #   ] 
 #   cp: target '/home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org1.convergenciax.com/peers/peer0.org1.convergenciax.com/tls/server.key' is not a directory
-# 
+#
 # Esto significa que se encontraron/home/jcotrado/HLFconvergenciax/external-ca/pki-ca/org3.convergenciax.com/tls-int/clients/orderer.org3.convergenciax.com/msp/keystore 2 keystores en la misma carpeta y el script no supo cual renombrar como  tls/server.key, lo resolvi 
 # renombrando manualmente el keystore a server.key y moviendolo a mano a la carpeta de destino.
 #
